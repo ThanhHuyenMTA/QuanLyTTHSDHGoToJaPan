@@ -31,7 +31,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input class="form-control col-md-7 col-xs-12" id="SDT" name="sdt" type="text" placeholder="Số điện thoại" />
-                                       
+                                        <p id="messThemSDT" style="color:red;font-weight:bold;"></p>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -40,10 +40,10 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input class="form-control col-md-7 col-xs-12" id="Email" name="email" placeholder="Email" type="email" />
-                                        
+                                        <p id="messThemEmail" style="color:red;font-weight:bold;"></p>
                                     </div>
                                 </div>
-                                <p id="messThemHS" style="color:red;font-weight:bold;"></p>
+                                <p id="messThemHS" style="color:red;font-weight:bold;margin-left: 30%;"></p>
                             </div>
                         </div>
 
@@ -64,7 +64,78 @@
     </div>
 </div>
 <script type="text/javascript">
-  
+    var boolAdd = true;
+    $("#SDT").blur(function () {
+        var sodienthoai = $("#SDT").val();
+        if (sodienthoai != "") {
+            $.ajax({
+                type: "POST",
+                url: "/HocSinh/CheckTrungSDT",
+                dataType: "json",
+                data: JSON.stringify({ sodienthoai: sodienthoai }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "Trung") {
+                        $("#messThemSDT").text("Số điện thoại đã tồn tại !");
+                        boolAdd = false;
+                        return false;
+                    }
+                    else {
+                        $("#messThemSDT").text("");
+
+                        boolAdd = true;
+                        return false;
+
+                    }
+                },
+                error: function (err) {
+                    alert("Error: " + err.responseText);
+                }
+            });
+        }
+    });
+    $("#SDT").focus(function () {
+        $("#messThemSDT").text("");
+        $("#messThemHS").text("");
+        
+        return false;
+    });
+    $("#Email").blur(function () {
+        var email = $("#Email").val();
+        if (email != "") {
+            $.ajax({
+                type: "POST",
+                url: "/HocSinh/CheckTrungEmail",
+                dataType: "json",
+                data: JSON.stringify({ email: email }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "Trung") {
+                        $("#messThemEmail").text("Email đã tồn tại !");
+                        boolAdd = false;
+                        return false;
+                    }
+                    else {
+                        $("#messThemEmail").text("");
+                        boolAdd = true;
+                        return false;
+                    }
+                },
+                error: function (err) {
+                    alert("Error: " + err.responseText);
+                }
+            });
+        }
+    });
+    $("#Email").focus(function () {
+        $("#messThemEmail").text("");
+        $("#messThemHS").text("");
+        return false;
+    });
+
+    
+    
+     
     function ThemmoiHS()
     {
         if ($("#tenHS").val() == "" || $("#tenSDT").val() == "" || $("#tenEmail").val() == "")
@@ -75,24 +146,37 @@
                 sdt: $('#SDT').val(),
                 email: $('#Email').val()
             };
-            $.ajax({
-                type: "POST",
-                url: "/HocSinh/Themmoi",
-                dataType: "json",
-                data: JSON.stringify(hocsinh),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    var result = confirm("Bạn có muốn thêm thông tin khác?");
-                    if (result) {
-                        window.location.href = "/HocSinh/ThemmoiChung/" + data;
-                    } else {
-                        window.location.href = "/HocSinh/Index";
+            if (boolAdd == true)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/HocSinh/Themmoi",
+                    dataType: "json",
+                    data: JSON.stringify(hocsinh),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data == "Thêm thất bại!")
+                            alert("Thêm mới thất bại!!!");
+                        if (data == "khong duoc quyen!")
+                            alert("Không được quyền!!!");
+                        else {
+                            var result = confirm("Bạn có muốn thêm thông tin khác?");
+                            if (result) {
+                                window.location.href = "/HocSinh/ThemmoiChung/" + data;
+                            } else {
+                                window.location.href = "/HocSinh/Index";
+                            }
+                        }
+
+                    },
+                    error: function (err) {
+                        alert("Error: " + err.responseText);
                     }
-                },
-                error: function (err) {
-                    alert("Error: " + err.responseText);
-                }
-            });
+                });
+            } else {
+                $("#messThemHS").text("Giá trị số điện thoại or email bị trùng!!!");
+            }
+            
         }
         
     }

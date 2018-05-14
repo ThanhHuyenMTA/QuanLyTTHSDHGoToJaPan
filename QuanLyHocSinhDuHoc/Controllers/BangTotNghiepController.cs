@@ -21,6 +21,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
              if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
              {
                  Session["file"] = null;
+                 Session["id_hsDetail"] = null;
                  return View();
              }
              return RedirectToAction("Index", "Home");

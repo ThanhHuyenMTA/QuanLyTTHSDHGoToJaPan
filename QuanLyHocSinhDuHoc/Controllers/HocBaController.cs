@@ -21,6 +21,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 HOCSINH hocsinh = db.HOCSINHs.Find(id_hs);
                 
                     Session["file"] = null;
+                    Session["id_hsDetail"] = null;
                     return View();
             } return RedirectToAction("Index", "Home");
         }

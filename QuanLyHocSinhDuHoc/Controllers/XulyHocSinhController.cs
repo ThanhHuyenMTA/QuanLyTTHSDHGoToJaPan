@@ -236,6 +236,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Cmt = db.CMTs.Find(so_CMT);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -271,6 +272,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Cmt = db.CMTs.Find(so_CMT);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -301,6 +303,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Hocba = db.HOCBAs.Find(id_HB);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -326,6 +329,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Cmt = db.CMTs.Find(so_CMT);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -361,6 +365,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Cmt = db.CMTs.Find(so_CMT);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -391,6 +396,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 {
                     chitietLoi.Hocba = db.HOCBAs.Find(id_HB);
                 }
+                return View(chitietLoi);
             }
             return RedirectToAction("Index", "Home");
         }

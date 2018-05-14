@@ -34,7 +34,7 @@
                                         Ngày sinh <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input class="form-control has-feedback-left active dateLoad" type="date" name="NgaySinh" id="dtpNgaySinhBTN" value="@Model.NgaySinh.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" name="NgaySinh" id="dtpNgaySinhBTN" value="@Model.NgaySinh.ToString("MM-dd-yyyy")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -85,7 +85,7 @@
                                         Khóa thi <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input class="form-control has-feedback-left active dateLoad" type="date" name="KhoaThi" id="dtpNgaySinhKT" value="@Model.KhoaThi.Value.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" name="KhoaThi" id="dtpNgaySinhKT" value="@Model.KhoaThi.Value.ToString("MM-dd-yyyy")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -101,7 +101,7 @@
                                         Ngày lập <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input class="form-control has-feedback-left active dateLoad" type="date" name="NgayLap" id="dtpBTNNL" value="@Model.NgayLap.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" name="NgayLap" id="dtpBTNNL" value="@Model.NgayLap.ToString("MM-dd-yyyy")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -118,6 +118,14 @@
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <input class="form-control col-md-7 col-xs-12" id="SovaoSoCapBangBTN" name="SovaoSoCapBang"  value="@Model.SovaoSoCapBang" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        File btn<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="fileBTN" name="fileBTN"  value="@Model.fileBTN" type="text" />
                                     </div>
                                 </div>
                                 <p id="messSuaBTN" style="color:red;font-weight:bold;"></p>
@@ -141,6 +149,40 @@
     </div>
 </div>
 <script type="text/javascript">
+    //format datetime
+    $(document).ready(function () {
+        $("#dtpNgaySinhBTN").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgaySinhKT").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpBTNNL").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+    //end
+
     $(document).ready(function () {
         $("#filebtnEdit").change(function () {
             debugger;
@@ -166,12 +208,8 @@
         });
     });
 
-    $(document).ready(function () {
-        var time = $(".dateLoad").val();
-        var dateControl = document.querySelector('input[type="date"]'); dateControl.value = time;
-    });
+   
     $("#submitEditBTN").click(function () {
-
         if ($("#HoTenBTN").val() == "" || $("#dtpNgaySinhBTN").val() == "" || $("#NoiSinhBTN").val() == "" ||
             $("#DanTocBTN").val() == "" || $("#dtpNgaySinhKT").val() == "" || $("#HoiDongThiBTN").val() == "" ||
             $("#dtpBTNNL").val() == "" || $("#SoHieuBTN").val() == "" || $("#SovaoSoCapBangBTN").val() == "") {
@@ -188,6 +226,10 @@
         //        return false;
         //    }
         //}
+        //$(document).ready(function () {
+        //    var time = $(".dateLoad").val();
+        //    var dateControl = document.querySelector('input[type="date"]'); dateControl.value = time;
+        //});
     });
 </script>
 

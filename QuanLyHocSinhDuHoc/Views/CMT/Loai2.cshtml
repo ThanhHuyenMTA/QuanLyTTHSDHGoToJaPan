@@ -18,7 +18,7 @@
                                 Số chứng minh <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" id="SoCMT2" name="SoCMT" type="text" />
+                                <input class="form-control col-md-7 col-xs-12" id="SoCMT2" name="SoCMT" type="text" placeholder="Số chứng minh" />
                                 <p id="messThemTrugCMT2" style="color:red;font-weight:bold;"></p>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 Ngày sinh <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinh2" type="date"/><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinh2" type="text"/><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -88,7 +88,7 @@
                                 Gía trị đến <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="GiaTriDen" id="dtpGiaTriDen2" type="date" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="GiaTriDen" id="dtpGiaTriDen2" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -104,7 +104,7 @@
                                 Ngày cấp <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="NgayCap" id="dtpNgayCap2" type="date" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="NgayCap" id="dtpNgayCap2" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -130,6 +130,45 @@
     </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function () {
+        //format datetime
+        var now = new Date();
+        var dateNow = now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
+        $("#dtpNgaySinh2").val(dateNow);
+        $("#dtpGiaTriDen2").val(dateNow);
+        $("#dtpNgayCap2").val(dateNow);        
+        $("#dtpNgaySinh2").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpGiaTriDen2").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayCap2").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+
+
     $("#SoCMT2").blur(function () {
         var socmt = $("#SoCMT2").val();
         if (socmt != "") {

@@ -1,8 +1,4 @@
-﻿@{
-    var date = DateTime.Now;
-    var date1 = date.ToString("MM/dd/yyyy");
-}
-<div class="" id="ClassGKS">
+﻿<div class="" id="ClassGKS">
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -39,7 +35,7 @@
                                         Ngày sinh <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinhKS" value="@date1" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinhKS" value="" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -191,7 +187,7 @@
                                         Ngày lập <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">                                       
-                                        <input style="width:117.3%;" class="form-control has-feedback-left active" name="NgayLap" id="dtpNgaySinhNL" value="@date1" type="text"/><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input style="width:117.3%;" class="form-control has-feedback-left active" name="NgayLap" id="dtpNgaySinhNL" value="" type="text"/><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                             </div>
@@ -216,11 +212,12 @@
 <div id="ThongbaoGKS">
 
 </div>
-<script type="text/javascript">
-    var now = new Date().toLocaleString();
-    var dateNow = now.getMonth + 1 + "/" + now.getDay + "/" + now.getFullYear;
-
+<script type="text/javascript"> 
     $(document).ready(function () {
+        var now = new Date();
+        var dateNow = now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
+        $("#dtpNgaySinhNL").val(dateNow);
+        $("#dtpNgaySinhKS").val(dateNow);
         $("#dtpNgaySinhNL").daterangepicker({
             singleDatePicker: true,
             calender_style: 'picker_1',

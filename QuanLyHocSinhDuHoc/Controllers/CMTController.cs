@@ -20,6 +20,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
                 Session["file"] = null;
+                Session["id_hsDetail"] = null;
                 return View();
             } return RedirectToAction("Index", "Home");
         }
@@ -53,7 +54,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
                     db.Entry(hocsinh).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
-                if (Session["id_hsDetail"]!=null)
+                if (Session["id_hsDetail"] != null)
                 {
                     Session["chuyenTab"] = 2;
                     return Json((int)Session["id_hsDetail"], JsonRequestBehavior.AllowGet);

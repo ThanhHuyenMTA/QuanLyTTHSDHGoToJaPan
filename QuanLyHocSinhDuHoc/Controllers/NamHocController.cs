@@ -18,6 +18,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+
                 return View();
             } return RedirectToAction("Index", "Home");
         }

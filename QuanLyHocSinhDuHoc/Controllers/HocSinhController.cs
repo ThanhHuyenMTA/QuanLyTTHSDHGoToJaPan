@@ -81,7 +81,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh"|| quyenNguoiDung.Quyen.Ten=="Admin"))
             {
                 if (ModelState.IsValid)
-                {
+                {                  
                     DateTime today = DateTime.Now;
                     hocsinh.timeStart = today.ToString("yyyy");
                     hocsinh.NguoiTao = quyenNguoiDung.Nhanvien.id;
@@ -95,6 +95,25 @@ namespace QuanLyHocSinhDuHoc.Controllers
             }
             return Json("khong duoc quyen!", JsonRequestBehavior.AllowGet);
         }
+         [HttpPost]
+        public JsonResult CheckTrungSDT(string sodienthoai)
+        {
+            var model = db.HOCSINHs.Where(n => n.sdt == sodienthoai).ToList();
+            if(model.Count>0)
+                return Json("Trung", JsonRequestBehavior.AllowGet);
+            else return Json("Khong trung", JsonRequestBehavior.AllowGet);
+        }
+           [HttpPost]
+        public JsonResult CheckTrungEmail(string email)
+        {
+               foreach(var item in db.HOCSINHs.ToList())
+               {
+                   if(email ==(string)item.email)
+                       return Json("Trung", JsonRequestBehavior.AllowGet);
+               }               
+               return Json("Khong trung", JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult UpLoadImage()
         {
@@ -220,6 +239,59 @@ namespace QuanLyHocSinhDuHoc.Controllers
             }
             return Json("Khong co quyen", JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult XoaHocSinh(int id)
+        {
+            //xóa dữ liệu trong bảng học sinh
+            HOCSINH hocsinh = db.HOCSINHs.Find(id);
+            db.HOCSINHs.Remove(hocsinh);
+            TABLE_LOI tble = db.TABLE_LOI.SingleOrDefault(n => n.id_HS == id);
+            if (tble != null)
+                db.TABLE_LOI.Remove(tble);
+            //xóa các dữ liệu liên quan
+            string socmt = hocsinh.SoCMT;
+            if(socmt!=null)
+            {
+                CMT cmt = db.CMTs.Find(socmt);
+                TABLE_LOI tble1 = db.TABLE_LOI.SingleOrDefault(n => n.So_CMT == socmt);
+                if (tble1 != null)
+                    db.TABLE_LOI.Remove(tble1);
+                db.CMTs.Remove(cmt);
+            }
+            int id_gks = hocsinh.id_GKS ==null ? 0 :(int)hocsinh.id_GKS;
+            if(id_gks!=0)
+            {
+                GIAYKHAISINH gks = db.GIAYKHAISINHs.Find(id_gks);
+                TABLE_LOI tble2 = db.TABLE_LOI.SingleOrDefault(n => n.id_GKS == id_gks);
+                if (tble2 != null)
+                    db.TABLE_LOI.Remove(tble2);
+                db.GIAYKHAISINHs.Remove(gks);
+            }
+            int id_btn = hocsinh.id_BTN == null ? 0 : (int)hocsinh.id_BTN;
+            if(id_btn!=0)
+            {
+                BANGTOTNGHIEP btn = db.BANGTOTNGHIEPs.Find(id_btn);
+                TABLE_LOI tble3= db.TABLE_LOI.SingleOrDefault(n => n.id_BTN == id_btn);
+                if (tble3 != null)
+                    db.TABLE_LOI.Remove(tble3);
+                db.BANGTOTNGHIEPs.Remove(btn);
+            }
+            int id_hb = hocsinh.id_HB == null ? 0 : (int)hocsinh.id_HB;
+            if(id_hb!=0)
+            {
+                HOCBA hocba = db.HOCBAs.Find(id_hb);
+                TABLE_LOI tble4 = db.TABLE_LOI.SingleOrDefault(n => n.id_HB == id_hb);
+                if (tble4 != null)
+                    db.TABLE_LOI.Remove(tble4);
+                db.HOCBAs.Remove(hocba);
+            }
+            string socmtNGH = hocsinh.id_NgGiamHo;
+            if(socmtNGH!=null)
+            {
+                NGUOIGIAMHO nggiamho = db.NGUOIGIAMHOes.Find(socmtNGH);
+                db.NGUOIGIAMHOes.Remove(nggiamho);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "HocSinh");
+        }
     }
 }

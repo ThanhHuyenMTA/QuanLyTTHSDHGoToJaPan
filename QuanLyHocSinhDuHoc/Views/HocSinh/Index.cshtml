@@ -75,15 +75,14 @@
                                                         <td><div class="word-wrap">@item.TenHS</div></td>
                                                         <td><div class="word-wrap">@item.sdt</div></td>
                                                         <td><div class="word-wrap">@item.email</div></td>
-                                                        <td class="actions">
-                                                            <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Sửa" href="@Url.Action("SuaHocsinh", "HocSinh", new {@id=@item.id })">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                            <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Detail" href="@Url.Action("DetailChung", "HocSinh", new {id = @item.id })">
+                                                        <td class="actions">                                                         
+                                                            <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Chi tiết" href="@Url.Action("DetailChung", "HocSinh", new {id = @item.id })">
                                                                 <i class="fa fa-slideshare"></i>
                                                             </a>
+                                                            <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Xóa" onclick="return confirm('Bạn có thực sự muốn xóa không?')" href="@Url.Action("XoaHocsinh", "HocSinh", new {@id=@item.id })">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </a>
                                                             <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Giấy tờ nhập học" href="@Url.Action("Giaynhaphoc", "GiayTo", new { @id = @item.id })">
-                                                               @* <i class="fa fa-edit"></i>*@
                                                                 Giấy nhập học
                                                             </a>
                                                         </td>
@@ -156,8 +155,9 @@
                     <li><a class="fa fa-angle-double-right" href="#" onclick="CuoiCung()"></a></li>
 
                 }
-            }
-        </ul>
+               
+                    }
+</ul>
     </div>
 </div>
 
@@ -181,17 +181,20 @@
                         $("#listHS").empty();
                         row += '<tr>';
                         row += '<td><div class="word-wrap">' + STT + '</div></td>';
-                        row += '<td><div class="word-wrap">'+item.timeStart+'</div></td>';
-                        row += '<td><div class="word-wrap">'+item.TenHS+'</div></td>';
-                        row += '<td><div class="word-wrap">'+item.sdt+'</div></td>';
-                        row += '<td><div class="word-wrap">'+item.email+'</div></td>';
+                        row += '<td><div class="word-wrap">' + item.timeStart + '</div></td>';
+                        row += '<td><div class="word-wrap">' + item.TenHS + '</div></td>';
+                        row += '<td><div class="word-wrap">' + item.sdt + '</div></td>';
+                        row += '<td><div class="word-wrap">' + item.email + '</div></td>';
                         row += '<td class="actions">';
-                        row += '<a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Sửa" href="@Url.Action("SuaHocsinh","HocSinh")?id='+item.id+'">';
-                        row += '<i class="fa fa-edit"></i>';
-                        row += ' </a>';
                         row += '<a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Detail" href="@Url.Action("DetailChung", "HocSinh")?id=' + item.id + '">';
                         row += '<i class="fa fa-slideshare"></i>';
-                        row += ' </a>';                    
+                        row += ' </a>';
+                        row += '<a data-toggle="tooltip" data-placement="bottom" title="Xóa" onclick=" return ConfirmOnDelete();" href="@Url.Action("XoaHocsinh","HocSinh")?id=' + item.id + '">';
+                        row += '<i class="fa fa-trash-o"></i>';
+                        row += ' </a>';
+                        row += '<a data-toggle="tooltip" data-placement="bottom" title="Giấy tờ nhập học" href="@Url.Action("Giaynhaphoc", "GiayTo")?id=' + item.id + '">';
+                        row += 'Giấy tờ nhập học';
+                        row += ' </a>';
                         row += '  </td>';
                         row += '  </tr>';
                         STT++;
@@ -203,7 +206,7 @@
                     alert("Error: " + err.responseText);
                 }
             });
-        });      
+        });
         $("#KeyTenHS").keypress(function (even) {
             if (even.keyCode == 13 || even.which == 3) {
                 var key = $("#KeyTenHS").val();
@@ -215,8 +218,7 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         console.log(data);
-                        if (data.length == 0)
-                        {
+                        if (data.length == 0) {
                             $("#TableListHs").css("display", "none");
                             $("#phantrang").css("display", "none");
                             $("#ThongBaoIndex").text("Không tìm thấy giá trị thỏa mãn");
@@ -235,11 +237,14 @@
                                 row += '<td><div class="word-wrap">' + item.sdt + '</div></td>';
                                 row += '<td><div class="word-wrap">' + item.email + '</div></td>';
                                 row += '<td class="actions">';
-                                row += '<a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Sửa" href="@Url.Action("SuaHocsinh","HocSinh")?id=' + item.id + '">';
-                                row += '<i class="fa fa-edit"></i>';
-                                row += ' </a>';
                                 row += '<a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Detail" href="@Url.Action("DetailChung", "HocSinh")?id=' + item.id + '">';
                                 row += '<i class="fa fa-slideshare"></i>';
+                                row += ' </a>';
+                                row += '<a data-toggle="tooltip" data-placement="bottom" title="Xóa" onclick=" return ConfirmOnDelete();" href="@Url.Action("XoaHocsinh","HocSinh")?id=' + item.id + '">';
+                                row += '<i class="fa fa-trash-o"></i>';
+                                row += ' </a>';
+                                row += '<a data-toggle="tooltip" data-placement="bottom" title="Giấy tờ nhập học" href="@Url.Action("Giaynhaphoc", "GiayTo")?id=' + item.id + '">';
+                                row += 'Giấy tờ nhập học';
                                 row += ' </a>';
                                 row += '  </td>';
                                 row += '  </tr>';
@@ -247,16 +252,24 @@
                             });
                             $("#listHS").html(row);
                         }
-                        
+
                     },
                     error: function (err) {
                         alert("Error: " + err.responseText);
                     }
                 });
             }
-            });
-        
+        });
     });
+    function ConfirmOnDelete() {
+        debugger;
+        var boolXoa = confirm("Bạn có thực sự muốn xóa không?");
+        if (boolXoa == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function SelectAll() {
         window.location.href = '/HocSinh/Index?page=' + 1;
     };
@@ -267,7 +280,7 @@
     };
     function Quaylai(page) {
         var pagecuoi = 1;
-        if (page == 1  || page == 0)
+        if (page == 1 || page == 0)
             pagecuoi = 1;
         else
             pagecuoi = page - 1;

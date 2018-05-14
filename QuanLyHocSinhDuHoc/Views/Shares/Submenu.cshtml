@@ -116,24 +116,25 @@
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
-                            <a href="@Url.Action("IndexTbDo","XulyHocSinh")" target="_blank">
-                                <span class="image">                                    
+                            <a href="@Url.Action("IndexTbDo","XulyHocSinh")" target="_blank" style="color:#5A738E;">
+                                <span class="image">
                                     <i class=" fa fa-snapchat" style="color:#ff0000;"></i>
                                 </span>
                                 <span>
-                                    <span >Thông báo Lỗi</span>
+                                    <span>Thông báo Lỗi</span>
                                     @{
                                         var listDo = Session["ThongBaoDo"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
                                         <span class="time">@listDo.Count</span>
-                                    }                                                
-                                   
+                                    }
+
                                 </span>
-                               <span class="message">
-                                    Rất quan trọng   </span>
+                                <span class="message">
+                                    Rất quan trọng
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("IndexTbVang","XulyHocSinh")" target="_blank">
+                            <a href="@Url.Action("IndexTbVang","XulyHocSinh")" target="_blank" style="color:#5A738E;">
                                 <span class="image">
                                     <i class=" fa fa-snapchat" style="color:#ffd800;"></i>
                                 </span>
@@ -151,7 +152,7 @@
 
                         </li>
                         <li>
-                            <a href="@Url.Action("IndexTbXanh","XulyHocSinh")" target="_blank">
+                            <a href="@Url.Action("IndexTbXanh","XulyHocSinh")" target="_blank" style="color:#5A738E;">
                                 <span class="image">
                                     <i class=" fa fa-snapchat" style="color:#00ff21;"></i>
                                 </span>
