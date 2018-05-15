@@ -99,11 +99,12 @@
                                                     if (item.TrangThai == "3")
                                                     {<i class="fa fa-snapchat" title="Mức tb cực kì cần thiết" style="color:#ff0000;"></i> }
                                                             }
-
                                                             <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Sửa" href="@Url.Action("ChinhSua", "XulyHocSinh", new {@id=@item.id})">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
-
+                                                            <button data-toggle="tooltip" data-placement="bottom" type="button"  title="Gửi thông báo" onclick="ThongBao(@item.id)">
+                                                                <i class="fa fa-envelope-o"></i>
+                                                             </button >
                                                         </td>
                                                     </tr>
 
@@ -123,7 +124,6 @@
         </div>
     </div>
 </div>
-
 @*phan trang*@
 <div id="phantrang">
     <div class="pagination-container">
@@ -184,6 +184,22 @@
 </div>
 
 <script type="text/javascript">
+    function ThongBao(id_loi)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/XulyHocSinh/ThongBao",
+            datatype: "json",
+            data:JSON.stringify({id_loi:id_loi}),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                window.location.href = '/XulyHocSinh/Index?page=' + data;
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
     function SelectAll() {
         window.location.href = '/XulyHocSinh/Index?page=' + 1;
     };

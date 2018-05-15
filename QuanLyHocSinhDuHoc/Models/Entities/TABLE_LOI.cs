@@ -24,5 +24,6 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
         public Nullable<System.DateTime> TimeStart { get; set; }
         public Nullable<System.DateTime> TimeEnd { get; set; }
         public string TrangThai { get; set; }
+        public Nullable<int> NguoiSua { get; set; }
     }
 }

@@ -87,6 +87,13 @@ namespace QuanLyHocSinhDuHoc.Controllers
                     hocsinh.NguoiTao = quyenNguoiDung.Nhanvien.id;
                     db.HOCSINHs.Add(hocsinh);
                     db.SaveChanges();
+                   
+                    if (hocsinh.email!=null)
+                    {
+                        Senmail senmail = new Senmail();
+                        senmail.SendEmail(hocsinh.email,"Xin chúc mừng bạn \nThông tin bạn đã được lưu trữ thành công trong hệ thống chúng tôi. \nCó gì thắc mắc bạn có thể liên hệ với chúng tôi qua email này (duhocnhatbangotojapan95@gmail.com). \nRất cảm ơn bạn nhiều. ");               
+                    }
+                      
                     int id_HS = hocsinh.id;
                     Session["id_HS"] = id_HS;
                     return Json(id_HS, JsonRequestBehavior.AllowGet);
@@ -113,7 +120,6 @@ namespace QuanLyHocSinhDuHoc.Controllers
                }               
                return Json("Khong trung", JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public JsonResult UpLoadImage()
         {
@@ -201,9 +207,9 @@ namespace QuanLyHocSinhDuHoc.Controllers
         {
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh"|| quyenNguoiDung.Quyen.Ten=="Admin"))
-            {
+            {               
                 Session["id_hsSua"] = id;
-                HOCSINH hocsinh = db.HOCSINHs.Find(id);
+                HOCSINH hocsinh = db.HOCSINHs.Find(id);               
                 return View(hocsinh);
             } return RedirectToAction("Index", "Home");
         }
@@ -214,7 +220,8 @@ namespace QuanLyHocSinhDuHoc.Controllers
             {
                 Session["id_hsDetail"] = id; //được gọi khi thực hiện cập nhật thông tin học sinh(HS,CMT,GKS,BTN...)
                 HOCSINH hocsinh = db.HOCSINHs.Find(id);
-                return View(hocsinh);
+                if (hocsinh.NguoiTao == quyenNguoiDung.Nhanvien.id)
+                     return View(hocsinh);
             } return RedirectToAction("Index", "Home");
         }
 
@@ -224,7 +231,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
-                List<HOCSINH> list = db.HOCSINHs.Where(n => n.timeStart == Namloc).ToList();
+                List<HOCSINH> list = db.HOCSINHs.Where(n => n.timeStart == Namloc && n.NguoiTao==quyenNguoiDung.Nhanvien.id).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             } 
             return Json("Khong co quyen", JsonRequestBehavior.AllowGet);
@@ -234,7 +241,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten=="Admin"))
             {
-                List<HOCSINH> list = db.HOCSINHs.Where(n => n.TenHS.Contains(keySearch) || n.sdt.Contains(keySearch) || n.email.Contains(keySearch)).ToList();
+                List<HOCSINH> list = db.HOCSINHs.Where(n =>(n.TenHS.Contains(keySearch) || n.sdt.Contains(keySearch) || n.email.Contains(keySearch)) && n.NguoiTao == quyenNguoiDung.Nhanvien.id).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
             return Json("Khong co quyen", JsonRequestBehavior.AllowGet);

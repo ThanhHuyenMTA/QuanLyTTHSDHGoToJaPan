@@ -355,6 +355,7 @@
     <Property Name="TimeStart" Type="datetime" />
     <Property Name="TimeEnd" Type="datetime" />
     <Property Name="TrangThai" Type="varchar" MaxLength="20" />
+    <Property Name="NguoiSua" Type="int" />
   </EntityType>
   <Function Name="PhanTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NguoiTao" Type="int" Mode="In" />
@@ -364,6 +365,7 @@
   <Function Name="PhanTrangLoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LineStart" Type="int" Mode="In" />
     <Parameter Name="soBanGhi" Type="int" Mode="In" />
+    <Parameter Name="NguoiSua" Type="int" Mode="In" />
   </Function>
   <Function Name="PhanTrangNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LineStart" Type="int" Mode="In" />

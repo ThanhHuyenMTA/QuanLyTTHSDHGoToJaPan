@@ -183,6 +183,7 @@
     <Property Name="TimeStart" Type="DateTime" Precision="3" />
     <Property Name="TimeEnd" Type="DateTime" Precision="3" />
     <Property Name="TrangThai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NguoiSua" Type="Int32" />
   </EntityType>
   <EntityContainer Name="dbXulyTThsEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BANGTOTNGHIEPs" EntityType="Self.BANGTOTNGHIEP" />
@@ -208,6 +209,7 @@
     <FunctionImport Name="PhanTrangLoi" ReturnType="Collection(dbXulyTThsModel.PhanTrangLoi_Result)">
       <Parameter Name="LineStart" Mode="In" Type="Int32" />
       <Parameter Name="soBanGhi" Mode="In" Type="Int32" />
+      <Parameter Name="NguoiSua" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="PHANQUYENs" EntityType="dbXulyTThsModel.PHANQUYEN" />
     <EntitySet Name="QUYENs" EntityType="dbXulyTThsModel.QUYEN" />

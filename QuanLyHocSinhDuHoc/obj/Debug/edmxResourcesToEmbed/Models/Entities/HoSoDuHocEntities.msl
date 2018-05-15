@@ -183,6 +183,7 @@
     <EntitySetMapping Name="TABLE_LOI">
       <EntityTypeMapping TypeName="dbXulyTThsModel.TABLE_LOI">
         <MappingFragment StoreEntitySet="TABLE_LOI">
+          <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="id_HS" ColumnName="id_HS" />

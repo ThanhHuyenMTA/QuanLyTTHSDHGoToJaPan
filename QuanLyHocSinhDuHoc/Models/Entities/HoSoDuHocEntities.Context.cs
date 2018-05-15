@@ -67,7 +67,7 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PhanTrang_Result>("PhanTrang", nguoiTaoParameter, lineStartParameter, soBanGhiParameter);
         }
     
-        public virtual ObjectResult<PhanTrangLoi_Result> PhanTrangLoi(Nullable<int> lineStart, Nullable<int> soBanGhi)
+        public virtual ObjectResult<PhanTrangLoi_Result> PhanTrangLoi(Nullable<int> lineStart, Nullable<int> soBanGhi, Nullable<int> nguoiSua)
         {
             var lineStartParameter = lineStart.HasValue ?
                 new ObjectParameter("LineStart", lineStart) :
@@ -77,7 +77,11 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
                 new ObjectParameter("soBanGhi", soBanGhi) :
                 new ObjectParameter("soBanGhi", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PhanTrangLoi_Result>("PhanTrangLoi", lineStartParameter, soBanGhiParameter);
+            var nguoiSuaParameter = nguoiSua.HasValue ?
+                new ObjectParameter("NguoiSua", nguoiSua) :
+                new ObjectParameter("NguoiSua", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PhanTrangLoi_Result>("PhanTrangLoi", lineStartParameter, soBanGhiParameter, nguoiSuaParameter);
         }
     
         public virtual ObjectResult<PhanTrangNguoiDung_Result> PhanTrangNguoiDung(Nullable<int> lineStart, Nullable<int> soBanGhi)

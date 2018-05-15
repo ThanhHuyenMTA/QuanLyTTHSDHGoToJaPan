@@ -62,10 +62,48 @@ namespace QuanLyHocSinhDuHoc.Controllers
             }
             else return View();
         }
-        public ActionResult Index(int? page)
-        {           
+        public bool checkNguoiTao(TABLE_LOI tableLoi, int id_nguoitao)
+        {
+            if (tableLoi.id_HS != 0 && tableLoi.id_HS != null)
+            {
+                HOCSINH hs = db.HOCSINHs.Find(tableLoi.id_HS);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            string socmt = tableLoi.So_CMT;
+            if (socmt != null)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.SoCMT == socmt);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_gks = tableLoi.id_GKS == null ? 0 : (int)tableLoi.id_GKS;
+            if (id_gks != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_GKS == id_gks);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_btn = tableLoi.id_BTN == null ? 0 : (int)tableLoi.id_BTN;
+            if (id_btn != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_BTN == id_btn);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_hb = tableLoi.id_HB == null ? 0 : (int)tableLoi.id_HB;
+            if (id_hb != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_HB == id_hb);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            return false;
+        }
+        public void CapNhatTb()
+        {
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
-            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh"|| quyenNguoiDung.Quyen.Ten=="Admin"))
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
                 List<TABLE_LOI> listVang = new List<TABLE_LOI>();
                 List<TABLE_LOI> listDo = new List<TABLE_LOI>();
@@ -81,27 +119,45 @@ namespace QuanLyHocSinhDuHoc.Controllers
                         if (day > 5)
                         {
                             i.TrangThai = "1"; //mức xanh
-                            listXanh.Add(i);
+                            if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                            {
+                                i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                                listXanh.Add(i);
+                            }
                         }
                         else
                         {
                             i.TrangThai = "2";//mức vàng
-                            listVang.Add(i);
+                            if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                            {
+                                i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                                listVang.Add(i);
+                            }
                         }
                     }
                     else
                     {
                         i.TrangThai = "3"; //mức đỏ
-                        listDo.Add(i);
+                        if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                        {
+                            i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                            listDo.Add(i);
+                        }
                     }
                 }
                 Session["ThongBaoVang"] = listVang;
                 Session["ThongBaoDo"] = listDo;
                 Session["ThongBaoXanh"] = listXanh;
                 db.SaveChanges();
-
-
-                int count = db.TABLE_LOI.ToList().Count;
+            }
+        }
+        public ActionResult Index(int? page)
+        {           
+            ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh"|| quyenNguoiDung.Quyen.Ten=="Admin"))
+            {
+                CapNhatTb();
+                int count = db.TABLE_LOI.Where(n=>n.NguoiSua==quyenNguoiDung.Nhanvien.id).ToList().Count;
                 ViewBag.All = count;
                 Session["chiasotrang"] = count % 10 == 0 ? count / 10 : count / 10 + 1;
                 page = page ?? 1;
@@ -119,7 +175,13 @@ namespace QuanLyHocSinhDuHoc.Controllers
                     ParameterName = "soBanGhi",
                     Value = soBanGhi
                 };
-                var list = db.Database.SqlQuery<TABLE_LOI>("exec PhanTrangLoi @LineStart,@soBanGhi ", idParam1, idParam2).ToList<TABLE_LOI>();
+                var idParam3 = new SqlParameter
+                {
+                    ParameterName = "NguoiSua",
+                    Value = quyenNguoiDung.Nhanvien.id
+                };
+
+                var list = db.Database.SqlQuery<TABLE_LOI>("exec PhanTrangLoi @LineStart,@soBanGhi,@NguoiSua ", idParam1, idParam2,idParam3).ToList<TABLE_LOI>();
                 return View(list);
             }
             return RedirectToAction("Index", "Home");   
@@ -130,22 +192,38 @@ namespace QuanLyHocSinhDuHoc.Controllers
         {
             int trangcuoi = (int)Session["chiasotrang"];
             return Json(trangcuoi, JsonRequestBehavior.AllowGet);
-        }
+        }    
         public ActionResult IndexTbXanh()
-        {
+        {           
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
-                return View(db.TABLE_LOI.Where(n => n.TrangThai == "1").ToList());
+                CapNhatTb();
+                List<TABLE_LOI> listChuan = new List<TABLE_LOI>();
+                var list = db.TABLE_LOI.Where(n => n.TrangThai == "1").ToList();
+                foreach(var item in list )
+                {
+                    if (checkNguoiTao(item, quyenNguoiDung.Nhanvien.id) == true)
+                        listChuan.Add(item);
+                }
+                return View(listChuan);
             }
             return RedirectToAction("Index", "Home");
         }
         public ActionResult IndexTbVang()
-        {
+        {           
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
-                return View(db.TABLE_LOI.Where(n => n.TrangThai == "2").ToList());
+                CapNhatTb();
+                List<TABLE_LOI> listChuan = new List<TABLE_LOI>();
+                var list = db.TABLE_LOI.Where(n => n.TrangThai == "2").ToList();
+                foreach (var item in list)
+                {
+                    if (checkNguoiTao(item, quyenNguoiDung.Nhanvien.id) == true)
+                        listChuan.Add(item);
+                }
+                return View(listChuan);
             }
             return RedirectToAction("Index", "Home");
             
@@ -155,7 +233,15 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
-                return View(db.TABLE_LOI.Where(n => n.TrangThai == "3").ToList());
+                CapNhatTb();
+                List<TABLE_LOI> listChuan = new List<TABLE_LOI>();
+                var list = db.TABLE_LOI.Where(n => n.TrangThai == "3").ToList();
+                foreach (var item in list)
+                {
+                    if (checkNguoiTao(item, quyenNguoiDung.Nhanvien.id) == true)
+                        listChuan.Add(item);
+                }
+                return View(listChuan);
             }
             return RedirectToAction("Index", "Home");
            
@@ -165,8 +251,12 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
+
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
+                if(checkNguoiTao(tableLoi,quyenNguoiDung.Nhanvien.id)==false)
+                    return RedirectToAction("Index", "Home");
                 string typeLoi = tableLoi.TypeLOI;
                 ViewBag.typeLoi = typeLoi;
 
@@ -204,6 +294,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -245,6 +336,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -281,6 +373,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -312,6 +405,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -338,6 +432,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -374,6 +469,7 @@ namespace QuanLyHocSinhDuHoc.Controllers
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
+                CapNhatTb();
                 LoiModel chitietLoi = new LoiModel();
                 TABLE_LOI tableLoi = db.TABLE_LOI.Find(id);
                 string typeLoi = tableLoi.TypeLOI;
@@ -638,20 +734,34 @@ namespace QuanLyHocSinhDuHoc.Controllers
              db.SaveChanges();
              return Json(true, JsonRequestBehavior.AllowGet);
          }
-
         [HttpPost]
         public ActionResult SearchLoi(string keySearchLoi) //tìm kiếm theo tên và loại lỗi
          {
-              List<HOCSINH> list = db.HOCSINHs.Where(n => n.TenHS.Contains(keySearchLoi)).ToList();
-              List<TABLE_LOI> listTbleLoi =db.TABLE_LOI.Where(n=>n.TypeLOI.Contains(keySearchLoi)).ToList();
-              foreach(var item in list)
-              {
-                  TABLE_LOI tb =db.TABLE_LOI.SingleOrDefault(n=>n.id_HS ==item.id);
-                  if(tb!=null)
-                      listTbleLoi.Add(tb);
-
-              }
-              return View(listTbleLoi);
+            ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
+            {
+                List<HOCSINH> list = db.HOCSINHs.Where(n => n.TenHS.Contains(keySearchLoi)).ToList();
+                //xet loai loi
+                List<TABLE_LOI> listTbleLoi = db.TABLE_LOI.Where(n => n.TypeLOI.Contains(keySearchLoi) && n.NguoiSua==quyenNguoiDung.Nhanvien.id).ToList();
+                //xet ten hoc sinh
+                foreach (var item in list)
+                {
+                    TABLE_LOI tb = db.TABLE_LOI.SingleOrDefault(n => n.id_HS == item.id && n.NguoiSua == quyenNguoiDung.Nhanvien.id);
+                    if (tb != null)
+                        listTbleLoi.Add(tb);
+                }
+                return View(listTbleLoi);
+            }
+            return RedirectToAction("Index", "Home");   
          }
+
+        //public JsonResult ThongBao(int id_loi)
+        //{
+        //    TABLE_LOI tableLoi = db.TABLE_LOI.Find(id_loi);
+        //    if(tableLoi.id_HS!=0)
+        //    {
+
+        //    }
+        //}
     }
 }

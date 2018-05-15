@@ -360,6 +360,7 @@
           <Property Name="TimeStart" Type="datetime" />
           <Property Name="TimeEnd" Type="datetime" />
           <Property Name="TrangThai" Type="varchar" MaxLength="20" />
+          <Property Name="NguoiSua" Type="int" />
         </EntityType>
         <Function Name="PhanTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NguoiTao" Type="int" Mode="In" />
@@ -369,6 +370,7 @@
         <Function Name="PhanTrangLoi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LineStart" Type="int" Mode="In" />
           <Parameter Name="soBanGhi" Type="int" Mode="In" />
+          <Parameter Name="NguoiSua" Type="int" Mode="In" />
         </Function>
         <Function Name="PhanTrangNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LineStart" Type="int" Mode="In" />
@@ -585,6 +587,7 @@
           <Property Name="TimeStart" Type="DateTime" Precision="3" />
           <Property Name="TimeEnd" Type="DateTime" Precision="3" />
           <Property Name="TrangThai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NguoiSua" Type="Int32" />
         </EntityType>
         <EntityContainer Name="dbXulyTThsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BANGTOTNGHIEPs" EntityType="Self.BANGTOTNGHIEP" />
@@ -610,6 +613,7 @@
           <FunctionImport Name="PhanTrangLoi" ReturnType="Collection(dbXulyTThsModel.PhanTrangLoi_Result)">
             <Parameter Name="LineStart" Mode="In" Type="Int32" />
             <Parameter Name="soBanGhi" Mode="In" Type="Int32" />
+            <Parameter Name="NguoiSua" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="PHANQUYENs" EntityType="dbXulyTThsModel.PHANQUYEN" />
           <EntitySet Name="QUYENs" EntityType="dbXulyTThsModel.QUYEN" />
@@ -1017,6 +1021,7 @@
           <EntitySetMapping Name="TABLE_LOI">
             <EntityTypeMapping TypeName="dbXulyTThsModel.TABLE_LOI">
               <MappingFragment StoreEntitySet="TABLE_LOI">
+                <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_HS" ColumnName="id_HS" />

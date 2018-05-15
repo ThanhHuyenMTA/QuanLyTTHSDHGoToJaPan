@@ -65,37 +65,93 @@ namespace QuanLyHocSinhDuHoc.Controllers
             List<TABLE_LOI> listVang = new List<TABLE_LOI>();
             List<TABLE_LOI> listDo = new List<TABLE_LOI>();
             List<TABLE_LOI> listXanh = new List<TABLE_LOI>();
-
-            DateTime today = DateTime.Now;
-            var listLoi = db.TABLE_LOI.ToList();
-            foreach (var i in listLoi)
+            ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
-                if (i.TimeEnd > today)
+                DateTime today = DateTime.Now;
+                var listLoi = db.TABLE_LOI.ToList();
+                foreach (var i in listLoi)
                 {
-                    TimeSpan a = ((DateTime)i.TimeEnd).Subtract(today);
-                    double day = a.TotalDays;
-                    if (day > 5)
+                    if (i.TimeEnd > today)
                     {
-                        i.TrangThai = "1"; //mức xanh
-                        listXanh.Add(i);
+                        TimeSpan a = ((DateTime)i.TimeEnd).Subtract(today);
+                        double day = a.TotalDays;
+                        if (day > 5)
+                        {
+                            i.TrangThai = "1"; //mức xanh
+                            if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                            {
+                                i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                                listXanh.Add(i);
+                            }
+                               
+                        }
+                        else
+                        {
+
+                            i.TrangThai = "2";//mức vàng
+                            if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                            {
+                                i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                                listVang.Add(i);
+                            }
+                               
+                        }
                     }
                     else
                     {
-
-                        i.TrangThai = "2";//mức vàng
-                        listVang.Add(i);
+                        i.TrangThai = "3"; //mức đỏ
+                        if (checkNguoiTao(i, quyenNguoiDung.Nhanvien.id) == true)
+                        {
+                            i.NguoiSua = quyenNguoiDung.Nhanvien.id;
+                            listDo.Add(i);
+                        }
+                           
                     }
                 }
-                else
-                {
-                    i.TrangThai = "3"; //mức đỏ
-                    listDo.Add(i);
-                }
+                Session["ThongBaoVang"] = listVang;
+                Session["ThongBaoDo"] = listDo;
+                Session["ThongBaoXanh"] = listXanh;
+                db.SaveChanges();
             }
-            Session["ThongBaoVang"] = listVang;
-            Session["ThongBaoDo"] = listDo;
-            Session["ThongBaoXanh"] = listXanh;
-            db.SaveChanges();
+        }
+        public bool checkNguoiTao(TABLE_LOI tableLoi, int id_nguoitao)
+        {
+            if (tableLoi.id_HS != 0 && tableLoi.id_HS != null)
+            {
+                HOCSINH hs = db.HOCSINHs.Find(tableLoi.id_HS);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            string socmt = tableLoi.So_CMT;
+            if (socmt != null)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.SoCMT == socmt);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_gks = tableLoi.id_GKS == null ? 0 : (int)tableLoi.id_GKS;
+            if (id_gks != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_GKS == id_gks);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_btn = tableLoi.id_BTN == null ? 0 : (int)tableLoi.id_BTN;
+            if (id_btn != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_BTN == id_btn);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            int id_hb = tableLoi.id_HB == null ? 0 : (int)tableLoi.id_HB;
+            if (id_hb != 0)
+            {
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_HB == id_hb);
+                if (hs.NguoiTao == id_nguoitao)
+                    return true;
+            }
+            return false;
         }
         
     }
