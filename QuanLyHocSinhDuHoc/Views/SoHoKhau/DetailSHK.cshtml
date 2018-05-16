@@ -1,0 +1,109 @@
+﻿@model IEnumerable<QuanLyHocSinhDuHoc.Models.Entities.HoKhau>
+@{
+    var id_hs = (int)Session["id_hsDetail"];
+    if (@Model == null || Model.Count() == 0)
+    {      
+         <h2 style='color:#0070e2;'><strong>Chưa cập nhật số hộ khẩu</strong></h2>
+         <a href="@Url.Action("Themmoi", "SoHoKhau", new { @id_hs = id_hs })" class="btn btn-primary">Thêm mới số hộ khẩu</a>
+    }
+    else
+    {
+        <h2 style='color:#0070e2;'><strong>Cập nhật thêm thông tin số hộ khẩu</strong></h2>
+        <a href="@Url.Action("Themmoi", "SoHoKhau", new { @id_hs = id_hs })" class="btn btn-primary">Thêm mới</a>
+        foreach (var item in Model)
+        {
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Thông tin @item.HoTen - quan hệ @item.QuanHe</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form class="form-horizontal form-label-left" method="post" id="@item.id_hokhau">
+                                    <div class="row">
+                                        <div class="col-md-10 col-sm-10 col-xs-10">
+                                            <br /><br />
+                                            <div hidden="hidden">
+                                                <input class="form-control col-md-7 col-xs-12" id="id_hokhau" name="id_hokhau" value="@item.id_hokhau" type="text" />
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Họ tên <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="HoTen'@item.id_hokhau'" name="HoTen" required="required" value="@item.HoTen" type="text" />
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <button class="btn btn-success" type="button" style="margin-left:30%;" onclick="CapNhat(@item.id_hokhau)">Cập nhật</button>
+                                                 </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Quốc tịch
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="QuocTich'@item.id_hokhau'" name="QuocTich" type="text" value="@item.QuocTich" />
+
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Tuổi
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="Tuoi'@item.id_hokhau'" name="Tuoi" value="@item.Tuoi" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Địa chỉ
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="DiaChi'@item.id_hokhau'" name="DiaChi" value="@item.Tuoi" type="number" />
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Nghề nghiệp
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="NgheNghiep'@item.id_hokhau'" name="NgheNghiep" value="@item.NgheNghiep" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Quan hệ
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="QuanHe'@item.id_hokhau'" name="QuanHe" value="@item.QuanHe" type="text" />
+                                                </div>
+                                            </div>
+                                            <p id="messThemHS" style="color:red;font-weight:bold;"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+<script type="text/javascript">
+    //function CapNhat(id_hokhau)
+    //{
+    //    var sohokhau = {
+    //        HoTen: $("#HoTen"+ id_hokhau).val(),
+    //        QuocTich: $("#QuocTich" + id_hokhau).val(),
+    //        Tuoi: $("#Tuoi" + id_hokhau).val(),
+    //        DiaChi: $("#DiaChi" + id_hokhau).val(),
+    //        NgheNghiep: $("#NgheNghiep" + id_hokhau).val(),
+    //        QuanHe: $("#QuanHe" + id_hokhau).val()
+    //    };
+    //};
+</script>

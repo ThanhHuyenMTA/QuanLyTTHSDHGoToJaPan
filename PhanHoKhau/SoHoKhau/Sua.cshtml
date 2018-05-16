@@ -1,6 +1,7 @@
-﻿
+﻿@*@model QuanLyHocSinhDuHoc.Models.Entities*@
+
 @{
-    ViewBag.Title = "Themmoi";
+    ViewBag.Title = "Sua";
     Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
 }
 <div class="">
@@ -14,7 +15,7 @@
                 </div>
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="post">
-                        <div class="row">                           
+                        <div class="row">
                             <div class="col-md-10 col-sm-10 col-xs-10">
                                 <br /><br />
                                 <div class="item form-group">
@@ -22,7 +23,7 @@
                                         Họ tên <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="HoTen" name="HoTen" required="required" placeholder="Họ tên..." type="text" />
+                                        <input class="form-control col-md-7 col-xs-12" id="HoTen" name="HoTen" required="required" value="@Model.HoTen" type="text" />
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -30,7 +31,7 @@
                                         Quốc tịch
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="QuocTich" name="QuocTich" type="text" placeholder="Quốc tịch..." />
+                                        <input class="form-control col-md-7 col-xs-12" id="QuocTich" name="QuocTich" type="text" value="@Model.QuocTich" />
 
                                     </div>
                                 </div>
@@ -39,7 +40,7 @@
                                         Tuổi
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="Tuoi" name="Tuoi" placeholder="Tuổi..." type="number" />
+                                        <input class="form-control col-md-7 col-xs-12" id="Tuoi" name="Tuoi" value="@Model.Tuoi" type="text" />
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -47,7 +48,7 @@
                                         Địa chỉ
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="DiaChi" name="DiaChi" placeholder="Địa chỉ..." type="text" />
+                                        <input class="form-control col-md-7 col-xs-12" id="DiaChi" name="DiaChi" value="@Model.DiaChi" type="number" />
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -55,7 +56,7 @@
                                         Nghề nghiệp
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="NgheNghiep" name="NgheNghiep" placeholder="Nghề nghiệp..." type="text" />
+                                        <input class="form-control col-md-7 col-xs-12" id="NgheNghiep" name="NgheNghiep" value="@Model.NgheNghiep" type="text" />
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -63,7 +64,7 @@
                                         Quan hệ
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="QuanHe" name="QuanHe" placeholder="Quan hệ..." type="text" />
+                                        <input class="form-control col-md-7 col-xs-12" id="QuanHe" name="QuanHe" value="@Model.QuanHe" type="text" />
                                     </div>
                                 </div>
                                 <p id="messThemHS" style="color:red;font-weight:bold;"></p>
@@ -75,7 +76,7 @@
                             @*chức năng*@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button class="btn btn-success" type="submit" id="ThemmoiSoHoKhau" style="margin-left:30%;">Thêm mới</button>
+                                    <button class="btn btn-success" type="button" id="CapNhatSoHoKhau" style="margin-left:30%;">Lưu thông tin</button>
                                     <a href="/HocSinh/Index" class="btn btn-primary">Huỷ</a>
                                 </div>
                             </div>
@@ -88,7 +89,7 @@
 </div>
 
 <script type="text/javascript">
-    $("#ThemmoiSoHoKhau").click(function () {
+    $("#CapNhatSoHoKhau").click(function () {
         if($("#Tuoi").val()=="" || $("#Tuoi").val()<=0)
         {
             alert("Nhập lại tuổi!!!");

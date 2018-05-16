@@ -754,14 +754,5 @@ namespace QuanLyHocSinhDuHoc.Controllers
             }
             return RedirectToAction("Index", "Home");   
          }
-
-        //public JsonResult ThongBao(int id_loi)
-        //{
-        //    TABLE_LOI tableLoi = db.TABLE_LOI.Find(id_loi);
-        //    if(tableLoi.id_HS!=0)
-        //    {
-
-        //    }
-        //}
     }
 }
