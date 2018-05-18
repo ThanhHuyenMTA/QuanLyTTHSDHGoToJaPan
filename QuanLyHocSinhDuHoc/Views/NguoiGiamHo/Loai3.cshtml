@@ -10,8 +10,8 @@
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="post">
                         <div class=" item form-group">
-                            <button id="btn_fileCMT3" type="button" onclick="$('#fileCMT3').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
-                            <input type="file" id="fileCMT3" name="fileCMT3" style="display: none;" class="form-control">
+                            <button type="button" onclick="$('#fileCMT3NGH').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                            <input type="file" id="fileCMT3NGH" name="fileCMT3NGH" style="display: none;" class="form-control">
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -160,14 +160,25 @@
                 data: JSON.stringify(cmt3),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    alert(data);
-                    $("#Loai1NGH").empty();
-                    $("#Loai2NGH").empty();
-                    $("#Loai3NGH").empty();
-                    $("#classNGH").empty();
-                    var row = '';
-                    row += "<h2 style='color:#0070e2;'><strong>Đã thêm thành công</strong></h2>"
-                    $("#ThongbaoCMTNGH").html(row);
+                    if (data == "Thêm thất bại!") {
+                        alert(data);
+                        return false;
+                    }
+                    if (data == "Thêm thành công!") {
+                        $("#classNGH").css("display", "none");
+                        $("#Loai1NGH").empty();
+                        $("#Loai2NGH").empty();
+                        $("#Loai3NGH").empty();
+                        $("#classNGH").empty();
+                        var row = '';
+                        row += "<h2 style='color:#0070e2;'><strong>Đã thêm thành công</strong></h2>"
+                        row += ""
+                        $("#ThongbaoCMTNGH").html(row);
+                        return false;
+                    }
+                    else {
+                        window.location.href = "/HocSinh/DetailChung/" + data;
+                    }
                 },
                 error: function (err) {
                     alert("Error: " + err.responseText);

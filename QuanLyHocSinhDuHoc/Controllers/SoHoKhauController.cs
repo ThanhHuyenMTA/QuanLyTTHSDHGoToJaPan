@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyHocSinhDuHoc.Models.Entities;
+using PaymentSystem.Controllers;
 
 namespace QuanLyHocSinhDuHoc.Controllers
 {
-    public class SoHoKhauController : Controller
+    public class SoHoKhauController : BaseController
     {
         dbXulyTThsEntities db = new dbXulyTThsEntities();
         // GET: SoHoKhau

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<QuanLyHocSinhDuHoc.Models.Entities.GIAYCHUNGTHUC>
+@{
+    //var id_hs = Request["id"];
+    // var id_hs = Request.Url.Segments.Last();
+    var id_hs = (int)Session["id_hsDetail"];
+    if (ViewBag.ThongbaoBTN == "NO")
+    {
+        <h2 style='color:#0070e2;'><strong>Chưa cập nhật giấy chứng thực</strong></h2>
+        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+        <input type="file" id="fileGCT" name="fileGCT" style="display: none;" class="form-control">
+        <a class="btn btn-sm btn-primary" href="@Url.Action("Load","GiayChungThuc")">Load</a>
+    }
+    if (ViewBag.ThongbaoBTN == "OK")
+    {
+        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Thêm file</button>
+        <input type="file" id="fileGCT" name="fileGCT" style="display: none;" class="form-control">
+        <a class="btn btn-sm btn-primary" href="@Url.Action("Load","GiayChungThuc")">Load</a><br />
+        var k = 1;
+        foreach (var item in Model)
+        {
+            <a class="btn btn-success" href="@Url.Action("TestPdf", "XuLyHocSinh", new { @url  =@item.Anh})" target="@item.id" onclick="clickHienGCT(@item.id)">Hiện thị file @k</a>
+            <iframe allowfullscreen frameborder="1" height="400px" width="100%" name="@item.id" hidden id="@item.id"></iframe>
+            k++;
+        }
+    }
+}
+<script type="text/javascript">
+    function clickHienGCT(id){
+        $("#"+id).show();
+    };
+    $(document).ready(function () {
+        $("#fileGCT").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileGCT").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/GiayChungThuc/CapNhatGCT",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    if (data != "Khong")
+                        alert("Lưu trữ thành công!!!");
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+    });
+</script>

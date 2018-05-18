@@ -61,6 +61,5 @@ D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\bin\System.Web.Web
 D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\bin\System.Web.Webpages.Razor.xml
 D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\bin\System.Web.Helpers.xml
 D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\bin\System.Web.Mvc.xml
-D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\obj\Debug\QuanLyHocSinhDuHoc.csprojResolveAssemblyReference.cache
 D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\obj\Debug\QuanLyHocSinhDuHoc.dll
 D:\A.DoAn\BailamWeb\QuanLyHSDuHocGoToJaPan\QuanLyHocSinhDuHoc\obj\Debug\QuanLyHocSinhDuHoc.pdb

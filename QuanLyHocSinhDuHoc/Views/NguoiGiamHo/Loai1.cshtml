@@ -10,8 +10,8 @@
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="post">
                         <div class=" item form-group">
-                            <button id="btn_fileCMT1" type="button" onclick="$('#fileCMT1').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
-                            <input type="file" id="fileCMT1" name="fileCMT1" style="display: none;" class="form-control">
+                            <button  type="button" onclick="$('#fileCMT1NGH').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                            <input type="file" id="fileCMT1NGH" name="fileCMT1NGH" style="display: none;" class="form-control">
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -110,7 +110,6 @@
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript">
-
     function SaveCMT1NGH() {
         if ($("#SoCMT1NGH").val() == "" || $("#HoTen1NGH").val() == "" || $("#dtpNgaySinh1NGH").val() == "" || $("#QueQuan1NGH").val() == "" || $("#NoiThuongTru1NGH").val() == "" || $("#TonGiao1NGH").val() == "" || $("#DanToc1NGH").val() == "" || $("#dtpNgayCap1NGH").val() == "" || $("#NoiCap1NGH").val() == "")
             $("#messThemCMT1NGH").text("Thông tin không được để trống !");
@@ -136,19 +135,25 @@
                 data: JSON.stringify(cmt1),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    alert(data);
-                    //$("#classNGH").css("display", "none");
-                    //$("#Loai1NGH").css("display", "none");
-                    //$("#Loai2NGH").css("display", "none");
-                    //$("#Loai3NGH").css("display", "none");
-                    $("#Loai1NGH").empty();
-                    $("#Loai2NGH").empty();
-                    $("#Loai3NGH").empty();
-                    $("#classNGH").empty();
-                    var row = '';
-                    row += "<h2 style='color:#0070e2;'><strong>Đã thêm thành công</strong></h2>"
-                    row += ""
-                    $("#ThongbaoCMTNGH").html(row);
+                    if (data == "Thêm thất bại!") {
+                        alert(data);
+                        return false;
+                    }
+                    if (data == "Thêm thành công!") {
+                        $("#classNGH").css("display", "none");
+                        $("#Loai1NGH").empty();
+                        $("#Loai2NGH").empty();
+                        $("#Loai3NGH").empty();
+                        $("#classNGH").empty();
+                        var row = '';
+                        row += "<h2 style='color:#0070e2;'><strong>Đã thêm thành công</strong></h2>"
+                        row += ""
+                        $("#ThongbaoCMTNGH").html(row);
+                        return false;
+                    }
+                    else {
+                        window.location.href = "/HocSinh/DetailChung/" + data;
+                    }
                 },
                 error: function (err) {
                     alert("Error: " + err.responseText);

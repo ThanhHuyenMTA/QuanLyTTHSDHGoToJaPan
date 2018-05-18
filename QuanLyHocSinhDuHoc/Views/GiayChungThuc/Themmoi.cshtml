@@ -1,0 +1,43 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Lưu trữ thông tin giấy chứng thực</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class=" item form-group">
+                    <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                    <input type="file" id="fileGCT" name="fileGCT" style="display: none;" class="form-control">
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#fileGCT").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileGCT").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/GiayChungThuc/SaveGCT",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    if (data != "Khong")
+                        alert("Lưu trữ thành công!!!");
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+    });
+</script>

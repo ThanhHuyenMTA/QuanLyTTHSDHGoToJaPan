@@ -36,6 +36,74 @@
 </style>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#fileCMT1NGH").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT1NGH").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+        $("#fileCMT2NGH").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT2NGH").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+        $("#fileCMT3NGH").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT3NGH").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+    });
     function LoaiCMTNGH(id)
     {
         debugger;

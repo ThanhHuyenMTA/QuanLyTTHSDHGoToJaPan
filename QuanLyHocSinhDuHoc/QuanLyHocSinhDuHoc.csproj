@@ -247,6 +247,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CMTController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
+    <Compile Include="Controllers\GiayChungThucController.cs" />
     <Compile Include="Controllers\GiayKhaiSinhController.cs" />
     <Compile Include="Controllers\GiayToController.cs" />
     <Compile Include="Controllers\HocBaController.cs" />
@@ -448,6 +449,10 @@
     <Content Include="Views\SoHoKhau\DetailSHK.cshtml" />
     <Content Include="Views\SoHoKhau\Sua.cshtml" />
     <Content Include="Views\SoHoKhau\Themmoi.cshtml" />
+    <Content Include="Views\NguoiGiamHo\Detail.cshtml" />
+    <Content Include="Views\GiayChungThuc\Themmoi.cshtml" />
+    <Content Include="Views\GiayChungThuc\DetailBTN.cshtml" />
+    <Content Include="Views\GiayChungThuc\DetailGCT.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
