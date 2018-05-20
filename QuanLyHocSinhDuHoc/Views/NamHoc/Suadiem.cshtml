@@ -1,0 +1,201 @@
+﻿@model IEnumerable<QuanLyHocSinhDuHoc.Models.Entities.KIHOC>
+@using QuanLyHocSinhDuHoc.Models.Entities
+
+@{
+    ViewBag.Title = "Suadiem";
+    Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
+}
+@{
+    var listDiemKH = Model as List<KIHOC>;     
+ }
+    <div class="container" id="Diemhocki">
+    <h4>Thông tin điểm các kì học năm học <strong>@ViewBag.namhoc</strong> </h4>
+
+    <div class="row nhapdiem">
+        <div class="col-lg-3">
+            <table class="table table-bordered" id="table_mon">
+                <thead>
+                    <tr class="success" style="height: 84px;"><th style="font-size:17px;">Môn học/Hoạt động GD</th></tr>
+                    <tr><th>Toán</th></tr>
+                    <tr><th>Vật lý</th></tr>
+                    <tr><th>Hóa học</th></tr>
+                    <tr><th>Sinh học</th></tr>
+                    <tr><th>Tinh học</th></tr>
+                    <tr><th>Ngữ văn</th></tr>
+                    <tr><th>Lịch sử</th></tr>
+                    <tr><th>Địa lý</th></tr>
+                    <tr><th>Ngoại ngữ</th></tr>
+                    <tr><th>Công nghệ</th></tr>
+                    <tr><th>GD,QP-AN</th></tr>
+                    <tr><th>Thể dục (Đạt,Không đạt)</th></tr>
+                    <tr><th>Tự chọn</th></tr>
+                    <tr><th>Giáo dục công dân</th></tr>
+                    <tr><th>Điểm trung bình</th></tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="col-lg-7">
+            <form method="post">
+                <table class="table table-bordered" id="table_mon">
+                    <thead>
+                        <tr class="success"><th colspan="3" style="font-size:17px;">Điểm trung bình các môn</th></tr>
+                        <tr class="success" style="font-size:17px;">
+                            <th>HKỳ I</th>
+                            <th>HKỳ II</th>
+                            <th>CN</th>
+                        </tr>
+                        <tr hidden>
+                            <th><input name="id" id="id_KI" type="text" value="@listDiemKH[0].id" /></th>
+                            <th><input name="id" id="id_KII" type="text" value="@listDiemKH[1].id" /></th>
+                            <th><input name="id" id="id_KCN" type="text" value="@listDiemKH[2].id" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="ToanI" id="ToanI" type="text" value="@listDiemKH[0].Toan" /></th>
+                            <th><input name="ToanI" id="ToanII" type="text" value="@listDiemKH[1].Toan" /></th>
+                            <th><input name="ToanI" id="ToanCN" type="text" value="@listDiemKH[2].Toan" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="LyI" id="LyI" type="text" value="@listDiemKH[0].Ly" /></th>
+                            <th><input name="LyII" id="LyII" type="text" value="@listDiemKH[1].Ly" /></th>
+                            <th><input name="LyCN" id="LyCN" type="text" value="@listDiemKH[2].Ly" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="HoaI" id="HoaI" type="text" value="@listDiemKH[0].Hoa" /></th>
+                            <th><input name="HoaII" id="HoaII" type="text" value="@listDiemKH[1].Hoa" /></th>
+                            <th><input name="HoaCN" id="HoaCN" type="text" value="@listDiemKH[2].Hoa" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="SinhI" id="SinhI" type="text" value="@listDiemKH[0].Sinh" /></th>
+                            <th><input name="SinhII" id="SinhII" type="text" value="@listDiemKH[1].Sinh" /></th>
+                            <th><input name="SinhCN" id="SinhCN" type="text" value="@listDiemKH[2].Sinh" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="TinI" id="TinI" type="text" value="@listDiemKH[0].Tin" /></th>
+                            <th><input name="TinII" id="TinII" type="text" value="@listDiemKH[1].Tin" /></th>
+                            <th><input name="TinCN" id="TinCN" type="text" value="@listDiemKH[2].Tin" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="VanI" id="VanI" type="text" value="@listDiemKH[0].Van" /></th>
+                            <th><input name="VanII" id="VanII" type="text" value="@listDiemKH[1].Van" /></th>
+                            <th><input name="VanCN" id="VanCN" type="text" value="@listDiemKH[2].Van" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="SuI" id="SuI" type="text" value="@listDiemKH[0].Su" /></th>
+                            <th><input name="SuII" id="SuII" type="text" value="@listDiemKH[1].Su" /></th>
+                            <th><input name="SuCN" id="SuCN" type="text" value="@listDiemKH[2].Su" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="DiaI" id="DiaI" type="text" value="@listDiemKH[1].Dia" /></th>
+                            <th><input name="DiaII" id="DiaII" type="text" value="@listDiemKH[1].Dia" /></th>
+                            <th><input name="DiaCN" id="DiaCN" type="text" value="@listDiemKH[2].Dia" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="NgoaiNguI" id="NgoaiNguI" type="text" value="@listDiemKH[0].NgoaiNgu" /></th>
+                            <th><input name="NgoaiNguII" id="NgoaiNguII" type="text" value="@listDiemKH[1].NgoaiNgu" /></th>
+                            <th><input name="NgoaiNguCN" id="NgoaiNguCN" type="text" value="@listDiemKH[2].NgoaiNgu" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="CongNgheI" id="CongNgheI" type="text" value="@listDiemKH[0].CongNghe" /></th>
+                            <th><input name="CongNgheII" id="CongNgheII" type="text" value="@listDiemKH[1].CongNghe" /></th>
+                            <th><input name="CongNgheCN" id="CongNgheCN" type="text" value="@listDiemKH[2].CongNghe" /></th>
+
+                        </tr>
+                        <tr>
+                            <th><input name="QuocPhongAnNinhI" id="QuocPhongAnNinhI" type="text" value="@listDiemKH[0].QuocPhongAnNinh" /></th>
+                            <th><input name="QuocPhongAnNinhII" id="QuocPhongAnNinhII" type="text" value="@listDiemKH[1].QuocPhongAnNinh" /></th>
+                            <th><input name="QuocPhongAnNinhCN" id="QuocPhongAnNinhCN" type="text" value="@listDiemKH[2].QuocPhongAnNinh" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="TheDucI" id="TheDucI" type="text" value="@listDiemKH[0].TheDuc" /></th>
+                            <th><input name="TheDucII" id="TheDucII" type="text" value="@listDiemKH[1].TheDuc" /></th>
+                            <th><input name="TheDucCN" id="TheDucCN" type="text" value="@listDiemKH[2].TheDuc" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="TuChonI" id="TuChonI" type="text" value="@listDiemKH[0].TuChon" /></th>
+                            <th><input name="TuChonII" id="TuChonII" type="text" value="@listDiemKH[1].TuChon" /></th>
+                            <th><input name="TuChonCN" id="TuChonCN" type="text" value="@listDiemKH[2].TuChon" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="GiaoDucCongDanI" id="GiaoDucCongDanI" type="text" value="@listDiemKH[0].GiaoDucCongDan" /></th>
+                            <th><input name="GiaoDucCongDanII" id="GiaoDucCongDanII" type="text" value="@listDiemKH[1].GiaoDucCongDan" /></th>
+                            <th><input name="GiaoDucCongDanCN" id="GiaoDucCongDanCN" type="text" value="@listDiemKH[2].GiaoDucCongDan" /></th>
+                        </tr>
+                        <tr>
+                            <th><input name="DiemTrungBinhI" id="DiemTrungBinhI" type="text" value="@listDiemKH[0].DiemTrungBinh" /></th>
+                            <th><input name="DiemTrungBinhII" id="DiemTrungBinhII" type="text" value="@listDiemKH[1].DiemTrungBinh" /></th>
+                            <th><input name="DiemTrungBinhCN" id="DiemTrungBinhCN" type="text" value="@listDiemKH[2].DiemTrungBinh" /></th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p id="messTbDiem" style="font-weight:bold;color:red;"></p>
+                                <button class="btn btn-primary" type="button" onclick="SaveDiemCapnhat()"> Lưu thông tin điểm </button>
+                            </td>
+
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/Scripts/XulyHocBa.js"></script>
+    <script type="text/javascript">
+        function LayDiemA(id_kihoc,nameHocKy, toan, ly, hoa, sinh, tin, van, su, dia, ngoaingu, congnghe, quocphong, theduc, tuchon, gdcd, diemTb) {
+            var diemky = {
+                id: $('#' + id_kihoc).val(),
+                TenKiHoc: nameHocKy,
+                Toan: $('#' + toan).val(),
+                Ly: $('#' + ly).val(),
+                Hoa: $('#' + hoa).val(),
+                Sinh: $('#' + sinh).val(),
+                Tin: $('#' + tin).val(),
+                Van: $('#' + van).val(),
+                Su: $('#' + su).val(),
+                Dia: $('#' + dia).val(),
+                NgoaiNgu: $('#' + ngoaingu).val(),
+                CongNghe: $('#' + congnghe).val(),
+                QuocPhongAnNinh: $('#' + quocphong).val(),
+                TheDuc: $('#' + theduc).val(),
+                TuChon: $('#' + tuchon).val(),
+                GiaoDucCongDan: $('#' + gdcd).val(),
+                DiemTrungBinh: $('#' + diemTb).val()
+            }
+            return diemky;
+        }
+        function SaveDiemCapnhat() {
+        var bool1 = validateDiemChung("messTbDiem", "ToanI", "LyI", "HoaI", "SinhI", "TinI", "VanI", "SuI", "DiaI", "NgoaiNguI", "CongNgheI", "QuocPhongAnNinhI", "TheDucI", "TuChonI", "GiaoDucCongDanI", "DiemTrungBinhI");
+        var bool2 = validateDiemChung("messTbDiem", "ToanII", "LyII", "HoaII", "SinhII", "TinII", "VanII", "SuII", "DiaII", "NgoaiNguII", "CongNgheII", "QuocPhongAnNinhII", "TheDucII", "TuChonII", "GiaoDucCongDanII", "DiemTrungBinhII");
+        var bool3 = validateDiemChung("messTbDiem", "ToanCN", "LyCN", "HoaCN", "SinhCN", "TinCN", "VanCN", "SuCN", "DiaCN", "NgoaiNguCN", "CongNgheCN", "QuocPhongAnNinhCN", "TheDucCN", "TuChonCN", "GiaoDucCongDanCN", "DiemTrungBinhCN");
+
+        if (bool1 == false || bool2 == false || bool3 == false) {
+            return false;
+        } else {
+            var diemKyI = LayDiemA("id_KI", "Hkỳ I", "ToanI", "LyI", "HoaI", "SinhI", "TinI", "VanI", "SuI", "DiaI", "NgoaiNguI", "CongNgheI", "QuocPhongAnNinhI", "TheDucI", "TuChonI", "GiaoDucCongDanI", "DiemTrungBinhI");
+            var diemKyII = LayDiemA("id_KII", "Hkỳ II", "ToanII", "LyII", "HoaII", "SinhII", "TinII", "VanII", "SuII", "DiaII", "NgoaiNguII", "CongNgheII", "QuocPhongAnNinhII", "TheDucII", "TuChonII", "GiaoDucCongDanII", "DiemTrungBinhII");
+            var diemKyCN = LayDiemA("id_KCN", "CN", "ToanCN", "LyCN", "HoaCN", "SinhCN", "TinCN", "VanCN", "SuCN", "DiaCN", "NgoaiNguCN", "CongNgheCN", "QuocPhongAnNinhCN", "TheDucCN", "TuChonCN", "GiaoDucCongDanCN", "DiemTrungBinhCN");
+            $.ajax({
+                type: "POST",
+                url: "/NamHoc/SaveDiemCapnhat",
+                dataType: "json",
+                data: JSON.stringify({ diemKyI: diemKyI, diemKyII: diemKyII, diemKyCN: diemKyCN }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data != "NO") {
+                        $("#messTbDiem").text("Lưu thành công");
+                        window.location.href = "/HocSinh/DetailChung/" + data;
+
+                    }
+                },
+                error: function (err) {
+                    alert("Error: " + err.responseText);
+                }
+            });
+        }
+    }
+    </script>

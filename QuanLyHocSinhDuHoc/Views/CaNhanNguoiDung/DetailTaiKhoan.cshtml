@@ -1,0 +1,87 @@
+﻿@model QuanLyHocSinhDuHoc.Models.Entities.NHANVIEN
+@{
+    ViewBag.Title = "DetailTaiKhoan";
+    Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
+}
+<div class="">
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Thông tin tài khoản</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="form-horizontal form-label-left" method="post" id="formAddND">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <br /><br />
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên người dùng <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="HoTenND" name="HoTen" required="required" value="@Model.HoTen" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Địa chỉ
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="DiaChi" name="DiaChi" required="required" value="@Model.DiaChi" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Số điện thoại
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="SoDT" name="SoDT" type="text" value="@Model.SoDT" placeholder="Số điện thoại" />
+                                        <p id="messphone" style="color:red;font-weight:bold;"></p>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên đăng nhập
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="TenDangNhap"  name="TenDangNhap" value="@Model.TenDangNhap" required="required" placeholder="Tên đăng nhập" type="text" />
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="ln_solid"></div>
+                            @*chức năng*@
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <a class="btn btn-success" href="#" onclick="SaveTK(@Model.id)" style="margin-left:10%;">Cập nhật thông tin</a>
+                                    <a class="btn btn-success" href="#" onclick="DoiMKTK(@Model.id)">Đổi mật khẩu</a>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function SaveTK(id)
+    {
+        var check = confirm("Bạn có thực sự muốn cập nhật lại thông tin?");
+        if (check == true)
+            window.location.href = "/CaNhanNguoiDung/CapNhatTaiKhoan/" + id;
+    }
+    function DoiMKTK(id) {
+        var check = confirm("Bạn có thực sự muốn đổi mật khẩu không?");
+        if (check == true)
+            window.location.href = "/CaNhanNguoiDung/DoiMatKhau/" + id;
+    }
+</script>

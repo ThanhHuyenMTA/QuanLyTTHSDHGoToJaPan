@@ -169,20 +169,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="NAMHOCs">
-      <EntityTypeMapping TypeName="dbXulyTThsModel.NAMHOC">
-        <MappingFragment StoreEntitySet="NAMHOC">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
-          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
-          <ScalarProperty Name="TenTruong" ColumnName="TenTruong" />
-          <ScalarProperty Name="id_HB" ColumnName="id_HB" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TABLE_LOI">
       <EntityTypeMapping TypeName="dbXulyTThsModel.TABLE_LOI">
         <MappingFragment StoreEntitySet="TABLE_LOI">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
           <ScalarProperty Name="id" ColumnName="id" />
@@ -216,6 +206,7 @@
     <EntitySetMapping Name="HoKhaus">
       <EntityTypeMapping TypeName="dbXulyTThsModel.HoKhau">
         <MappingFragment StoreEntitySet="HoKhau">
+          <ScalarProperty Name="fileSHK" ColumnName="fileSHK" />
           <ScalarProperty Name="id_hs" ColumnName="id_hs" />
           <ScalarProperty Name="QuanHe" ColumnName="QuanHe" />
           <ScalarProperty Name="NgheNghiep" ColumnName="NgheNghiep" />
@@ -419,6 +410,18 @@
           <ScalarProperty Name="sdt" ColumnName="sdt" />
           <ScalarProperty Name="SoCMT" ColumnName="SoCMT" />
           <ScalarProperty Name="TenHS" ColumnName="TenHS" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NAMHOCs">
+      <EntityTypeMapping TypeName="dbXulyTThsModel.NAMHOC">
+        <MappingFragment StoreEntitySet="NAMHOC">
+          <ScalarProperty Name="StatusNH" ColumnName="StatusNH" />
+          <ScalarProperty Name="id_HB" ColumnName="id_HB" />
+          <ScalarProperty Name="TenTruong" ColumnName="TenTruong" />
+          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+          <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -1,0 +1,158 @@
+﻿@model QuanLyHocSinhDuHoc.Models.Entities.NHANVIEN
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
+}
+<div class="">
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Đổi mật khẩu</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="form-horizontal form-label-left" method="post" id="formAddND">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <br /><br />
+                                <div class="item form-group" hidden>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="id" name="id" required="required" value="@Model.id" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nhập mật khẩu cũ <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="MatKhauOld" required="required" type="password" />
+                                         <p id="messMK1" style="color:red;font-weight:bold;"></p>
+                                     </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nhập mật khẩu mới
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="MatKhau" name="MatKhau" required="required" type="password" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nhập lại mật khẩu
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="MatKhauLai" name="MatKhau" required="required" type="password" />                                        
+                                        <p id="messMK" style="color:red;font-weight:bold;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="ln_solid"></div>
+                            @*chức năng*@
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button class="btn btn-success" id="SublmitDoiMK" type="button" style="margin-left:30%;">Lưu thông tin</button>
+                                    <a class="btn btn-success" href="@Url.Action("DetailTaiKhoan", "CaNhanNguoiDung", new { id=@Model.id})">Hủy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function checkMK()
+    {
+        var matkhauOld = $("#MatKhauOld").val();
+        var id = $("#id").val();
+        if (matkhauOld != "" && id != "") {
+            $.ajax({
+                url: "/CaNhanNguoiDung/CheckMatKhau",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({ id: id, matkhauOld: matkhauOld }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "NO") {
+                        $("#messMK1").text("Sai mật khẩu!");
+                        return false;
+                    }else{
+                        return true;
+                    }
+                },
+                error: function (er) {
+                    alert(er);
+                }
+            });
+        }
+    }
+    $("#MatKhauOld").blur(function () {      
+        checkMK();      
+    });
+    $("#MatKhauOld").focus(function () {
+        $("#messMK1").text("");
+    });
+    function check2MK()
+    {
+        var mkMoi1 = $("#MatKhau").val();
+        var mkMoi2 = $("#MatKhauLai").val();
+        if (mkMoi1 != "" && mkMoi2 != "") {
+            if (mkMoi1 != mkMoi2)
+            {
+                $("#messMK").text("Phải nhập mật khẩu giống nhau!!!");
+                return false;
+            }
+                
+            else return true;
+        }
+    }
+    $("#MatKhauLai").blur(function () {        
+        check2MK();
+    });
+    $("#MatKhauLai").focus(function () {
+        $("#messMK").text("");
+    });
+    $("#MatKhau").blur(function () {       
+        check2MK();
+    });
+    $("#MatKhau").focus(function () {
+        $("#messMK").text("");
+    });
+    $("#SublmitDoiMK").click(function () {
+        var bool1 =checkMK();
+        var bool2 = check2MK();
+        if (bool1 != false && bool2 != false)
+        {
+            var nhanvien = {
+                id: $("#id").val(),
+                MatKhau: $("#MatKhau").val()
+            }
+            $.ajax({
+                url: "/CaNhanNguoiDung/DoiMatKhau",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(nhanvien),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "YES") {
+                        window.location.href = "/DangNhap/Dangnhap";
+                    } else {
+                        return false;
+                    }
+                },
+                error: function (er) {
+                    alert(er);
+                }
+            });
+        }
+        
+    });
+</script>
+

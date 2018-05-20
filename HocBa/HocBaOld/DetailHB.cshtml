@@ -1,0 +1,414 @@
+﻿@model QuanLyHocSinhDuHoc.Models.Entities.HOCBA
+@{
+    //var id_hs = Request["id"];
+   // var id_hs = Request.Url.Segments.Last();
+    var id_hs = (int)Session["id_hsDetail"];
+    if (ViewBag.ThongbaoHB == "NO")
+    {
+        <h2 style='color:#0070e2;'><strong>Chưa cập nhật học bạ</strong></h2>
+        <a href="@Url.Action("ThemmoiR", "HocBa", new {@id_hs =id_hs })" class="btn btn-primary">Thêm mới học bạ</a>
+    } if (ViewBag.ThongbaoHB == "OK")
+    {
+        <div class="" id="ClassHB">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Thông tin chi tiết học bạ</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" method="post">
+                                <div class="row">
+                                    @* Phan 1 *@
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Họ tên <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" id="HoTenHB" value="@Model.HoTen" disabled name="HoTen" required="required" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Ngày sinh <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control has-feedback-left active" disabled name="NgaySinh" id="dtpNgaySinhHB" type="date" value="@Model.NgaySinh.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        @* Gioi tinh ?? *@
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Giới tính
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                @{
+                                                if (Model.GioiTinh == "Nam")
+                                                {
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="GioiTinh" checked="checked" value="Nam" /> Nam
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="GioiTinh" value="Nữ" /> Nữ
+                                                    </label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="GioiTinh" value="Nam" /> Nam
+                                                        </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="GioiTinh" checked="checked" value="Nữ" /> Nữ
+                                                    </label>
+                                                     }
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Nơi sinh
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NoiSinhHB" name="NoiSinh" type="text" value="@Model.NoiSinh" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Dân tộc
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="DanTocHB" name="DanToc" value="@Model.DanToc" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Nơi sống hiện tại
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NoiSongHienTaiHB" name="NoiSongHienTai" type="text" value="@Model.NoiSongHienTai" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    @* phan 2 *@
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        @* Bố *@
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Họ tên bố <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="HoTenBoHB" name="HoTenBo" type="text" value="@Model.HoTenBo" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Nghề nghiệp bố
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NgheNghiepBoHB" name="NgheNghiepBo" value="@Model.NgheNghiepBo" type="text" />
+                                            </div>
+                                        </div>
+
+                                        @* Mẹ *@
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Họ tên mẹ <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="HoTenMeHB" name="HoTenMe" type="text" value="@Model.HoTenMe" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Nghề nghiệp mẹ
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NgheNghiepMeHB" name="NgheNghiepMe" value="@Model.NgheNghiepMe" type="text" />
+                                            </div>
+                                        </div>
+
+                                        @* Người giám hộ *@
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Người giám hộ
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NguoiGiamHoHB" name="NguoiGiamHo" type="text" value="@Model.NguoiGiamHo" />
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                Nghề nghiệp người giám hộ
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" disabled id="NgheNghiepNGHHB" name="NgheNghiepNGH" value="@Model.NgheNghiepNGH" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-1 col-sm-1 col-xs-12" style="margin-left:4%;">
+                                                Ngày lập <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input style="width:117.3%;" class="form-control has-feedback-left active" disabled name="NgayLap" id="dtpNgayLapHB" type="date" value="@Model.NgayLap.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="ln_solid"></div>
+                                    @*chức năng*@
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <a class="btn btn-success" href="@Url.Action("SuaHB", "HocBa", new { @id=@Model.id})" style="margin-left:30%;">Cập nhật học bạ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        //Hiện thị năm học
+        {
+            var listNH = ViewBag.listNamHoc as IEnumerable<QuanLyHocSinhDuHoc.Models.Entities.NAMHOC>;
+            var listDiemKH = ViewBag.listKiHoc as IEnumerable<QuanLyHocSinhDuHoc.CommonXuLy.DiemKyHoc>;                  
+            if (listNH.Count() != 0)
+            {
+                <div class="" id="loadNamHoc">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_content">
+                                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table class="table table-striped table-bordered" style="overflow-x:auto;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><div class="word-wrap">Thời gian</div></th>
+                                                            <th><div class="word-wrap">Tên lớp</div></th>
+                                                            <th><div class="word-wrap">Tên trường</div></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tableMonhoc">
+                                                        @foreach (var itemNH in listNH)
+                                                        {                                                      
+                                                            <tr>
+                                                                <td><div class=word-wrap>@itemNH.ThoiGian</div></td>
+                                                                <td><div class=word-wrap>@itemNH.TenLop</div></td>
+                                                                <td><div class=word-wrap>@itemNH.TenTruong</div></td>
+                                                                @if (listDiemKH.Count() != 0)
+                                                                {
+                                                                    var i = 1;
+                                                                    foreach (var itemDiem in listDiemKH)
+                                                                    {
+
+                                                                        if (itemDiem.Namhoc.ThoiGian == @itemNH.ThoiGian) //đã có điểm đối với năm học này
+                                                                        {
+                                                                            break;
+                                                                        }
+                                                                        i++;
+                                                                        if (i > listDiemKH.Count())
+                                                                        {
+                                                                            <td class=actions>
+                                                                                <a data-toggle=tooltip data-placement=bottom title="Nhập điểm" target="_blank" href="@Url.Action("ThemmoiDiem", "KyHoc", new { @id_hb = @Model.id})">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                               
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- Bảng dữ liệu -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //hiện thị điểm theo năm học
+                {
+                    if (listDiemKH.Count() != 0)
+                    {
+                        foreach (var itemDiem in listDiemKH)
+                        {
+                            <div class="container" id="Diemhocki">
+                                <h4>Thông tin điểm các kì học năm học <strong>@itemDiem.Namhoc.ThoiGian</strong> </h4>
+
+                                <div class="row nhapdiem">
+                                    <div class="col-lg-3">
+                                        <table class="table table-bordered" id="table_mon">
+                                            <thead>
+                                                <tr class="success" style="height: 84px;"><th style="font-size:17px;">Môn học/Hoạt động GD</th></tr>
+                                                <tr><th>Toán</th></tr>
+                                                <tr><th>Vật lý</th></tr>
+                                                <tr><th>Hóa học</th></tr>
+                                                <tr><th>Sinh học</th></tr>
+                                                <tr><th>Tinh học</th></tr>
+                                                <tr><th>Ngữ văn</th></tr>
+                                                <tr><th>Lịch sử</th></tr>
+                                                <tr><th>Địa lý</th></tr>
+                                                <tr><th>Ngoại ngữ</th></tr>
+                                                <tr><th>Công nghệ</th></tr>
+                                                <tr><th>GD,QP-AN</th></tr>
+                                                <tr><th>Thể dục (Đạt,Không đạt)</th></tr>
+                                                <tr><th>Tự chọn</th></tr>
+                                                <tr><th>Giáo dục công dân</th></tr>
+                                                <tr><th>Điểm trung bình</th></tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-lg-7">
+                                        <form method="post">
+                                            <table class="table table-bordered" id="table_mon">
+                                                <thead>
+                                                    <tr class="success"><th colspan="3" style="font-size:17px;">Điểm trung bình các môn</th></tr>
+                                                    <tr class="success" style="font-size:17px;">
+                                                        <th>HKỳ I</th>
+                                                        <th>HKỳ II</th>
+                                                        <th>CN</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="ToanI" id="ToanI" type="text" value="@itemDiem.Lkihoc[0].Toan" /></th>
+                                                        <th><input name="ToanI" id="ToanII" type="text" value="@itemDiem.Lkihoc[1].Toan" /></th>
+                                                        <th><input name="ToanI" id="ToanCN" type="text" value="@itemDiem.Lkihoc[2].Toan" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="LyI" id="LyI" type="text" value="@itemDiem.Lkihoc[0].Ly" /></th>
+                                                        <th><input name="LyII" id="LyII" type="text" value="@itemDiem.Lkihoc[1].Ly" /></th>
+                                                        <th><input name="LyCN" id="LyCN" type="text" value="@itemDiem.Lkihoc[2].Ly" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="HoaI" id="HoaI" type="text" value="@itemDiem.Lkihoc[0].Hoa" /></th>
+                                                        <th><input name="HoaII" id="HoaII" type="text" value="@itemDiem.Lkihoc[1].Hoa" /></th>
+                                                        <th><input name="HoaCN" id="HoaCN" type="text" value="@itemDiem.Lkihoc[2].Hoa" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="SinhI" id="SinhI" type="text" value="@itemDiem.Lkihoc[0].Sinh" /></th>
+                                                        <th><input name="SinhII" id="SinhII" type="text" value="@itemDiem.Lkihoc[1].Sinh" /></th>
+                                                        <th><input name="SinhCN" id="SinhCN" type="text" value="@itemDiem.Lkihoc[2].Sinh" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="TinI" id="TinI" type="text" value="@itemDiem.Lkihoc[0].Tin" /></th>
+                                                        <th><input name="TinII" id="TinII" type="text" value="@itemDiem.Lkihoc[1].Tin" /></th>
+                                                        <th><input name="TinCN" id="TinCN" type="text" value="@itemDiem.Lkihoc[2].Tin" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="VanI" id="VanI" type="text" value="@itemDiem.Lkihoc[0].Van" /></th>
+                                                        <th><input name="VanII" id="VanII" type="text" value="@itemDiem.Lkihoc[1].Van" /></th>
+                                                        <th><input name="VanCN" id="VanCN" type="text" value="@itemDiem.Lkihoc[2].Van" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="SuI" id="SuI" type="text" value="@itemDiem.Lkihoc[0].Su" /></th>
+                                                        <th><input name="SuII" id="SuII" type="text" value="@itemDiem.Lkihoc[1].Su" /></th>
+                                                        <th><input name="SuCN" id="SuCN" type="text" value="@itemDiem.Lkihoc[2].Su" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="DiaI" id="DiaI" type="text" value="@itemDiem.Lkihoc[0].Dia" /></th>
+                                                        <th><input name="DiaII" id="DiaII" type="text" value="@itemDiem.Lkihoc[1].Dia" /></th>
+                                                        <th><input name="DiaCN" id="DiaCN" type="text" value="@itemDiem.Lkihoc[2].Dia" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="NgoaiNguI" id="NgoaiNguI" type="text" value="@itemDiem.Lkihoc[0].NgoaiNgu" /></th>
+                                                        <th><input name="NgoaiNguII" id="NgoaiNguII" type="text" value="@itemDiem.Lkihoc[1].NgoaiNgu" /></th>
+                                                        <th><input name="NgoaiNguCN" id="NgoaiNguCN" type="text" value="@itemDiem.Lkihoc[2].NgoaiNgu" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="CongNgheI" id="CongNgheI" type="text" value="@itemDiem.Lkihoc[0].CongNghe" /></th>
+                                                        <th><input name="CongNgheII" id="CongNgheII" type="text" value="@itemDiem.Lkihoc[1].CongNghe" /></th>
+                                                        <th><input name="CongNgheCN" id="CongNgheCN" type="text" value="@itemDiem.Lkihoc[2].CongNghe" /></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="QuocPhongAnNinhI" id="QuocPhongAnNinhI" type="text" value="@itemDiem.Lkihoc[0].QuocPhongAnNinh" /></th>
+                                                        <th><input name="QuocPhongAnNinhII" id="QuocPhongAnNinhII" type="text" value="@itemDiem.Lkihoc[1].QuocPhongAnNinh" /></th>
+                                                        <th><input name="QuocPhongAnNinhCN" id="QuocPhongAnNinhCN" type="text" value="@itemDiem.Lkihoc[2].QuocPhongAnNinh" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="TheDucI" id="TheDucI" type="text" value="@itemDiem.Lkihoc[0].TheDuc" /></th>
+                                                        <th><input name="TheDucII" id="TheDucII" type="text" value="@itemDiem.Lkihoc[1].TheDuc" /></th>
+                                                        <th><input name="TheDucCN" id="TheDucCN" type="text" value="@itemDiem.Lkihoc[2].TheDuc" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="TuChonI" id="TuChonI" type="text" value="@itemDiem.Lkihoc[0].TuChon" /></th>
+                                                        <th><input name="TuChonII" id="TuChonII" type="text" value="@itemDiem.Lkihoc[1].TuChon" /></th>
+                                                        <th><input name="TuChonCN" id="TuChonCN" type="text" value="@itemDiem.Lkihoc[2].TuChon" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="GiaoDucCongDanI" id="GiaoDucCongDanI" type="text" value="@itemDiem.Lkihoc[0].GiaoDucCongDan" /></th>
+                                                        <th><input name="GiaoDucCongDanII" id="GiaoDucCongDanII" type="text" value="@itemDiem.Lkihoc[1].GiaoDucCongDan" /></th>
+                                                        <th><input name="GiaoDucCongDanCN" id="GiaoDucCongDanCN" type="text" value="@itemDiem.Lkihoc[2].GiaoDucCongDan" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><input name="DiemTrungBinhI" id="DiemTrungBinhI" type="text" value="@itemDiem.Lkihoc[0].DiemTrungBinh" /></th>
+                                                        <th><input name="DiemTrungBinhII" id="DiemTrungBinhII" type="text" value="@itemDiem.Lkihoc[1].DiemTrungBinh" /></th>
+                                                        <th><input name="DiemTrungBinhCN" id="DiemTrungBinhCN" type="text" value="@itemDiem.Lkihoc[2].DiemTrungBinh" /></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th><button type="button">Chỉnh sửa điểm kỳ I</button></th>
+                                                        <th><button type="button">Chỉnh sửa điểm kỳ II</button></th>
+                                                        <th><button type="button">Chỉnh sửa điểm kỳ CN</button></th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h2 style='color:#0070e2;'><strong>Chưa cập nhật điểm học bạ</strong></h2>
+                        <a href="@Url.Action("ThemmoiDiem", "KyHoc", new { @id_hb = @Model.id})" class="btn btn-primary">Thêm mới điểm học bạ</a>
+                    }
+
+                }
+
+            }
+            else
+            {
+                <h2 style='color:#0070e2;'><strong>Chưa cập nhật năm học</strong></h2>
+                <a href="@Url.Action("ThemmoiR", "NamHoc", new {@id_hb =Model.id })" class="btn btn-primary">Thêm mới năm học</a>
+            }
+            
+        }
+       
+
+
+    }
+}
+<style>
+    #table_mon thead tr th{
+        height:43px;
+    }
+     #table_mon thead tr th input{
+        text-align:center;
+    }
+</style>

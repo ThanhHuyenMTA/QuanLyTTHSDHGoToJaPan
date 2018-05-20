@@ -1,28 +1,27 @@
-﻿using System;
+﻿using PaymentSystem.Controllers;
+using QuanLyHocSinhDuHoc.CommonXuLy;
+using QuanLyHocSinhDuHoc.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using QuanLyHocSinhDuHoc.Models.Entities;
-using QuanLyHocSinhDuHoc.CommonXuLy;
-using PaymentSystem.Controllers;
 
 namespace QuanLyHocSinhDuHoc.Controllers
 {
     public class HocBaController : BaseController
     {
         dbXulyTThsEntities db = new dbXulyTThsEntities();
-        // GET: HocBa
+        // GET: HocBa     
         public ActionResult Themmoi(int? id_hs)
         {
             ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
             if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
             {
                 HOCSINH hocsinh = db.HOCSINHs.Find(id_hs);
-                
-                    Session["file"] = null;
-                    Session["id_hsDetail"] = null;
-                    return View();
+                Session["file"] = null;
+                Session["id_hsDetail"] = null;
+                return View();
             } return RedirectToAction("Index", "Home");
         }
         public ActionResult ThemmoiR(int? id_hs)
@@ -57,9 +56,9 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 db.SaveChanges();
                 //dùng để khi tiến hành thêm mới năm học
                 Session["id_hocba"] = hocba.id;
-                return Json("Thêm mới thành công", JsonRequestBehavior.AllowGet);
+                return Json("YES", JsonRequestBehavior.AllowGet);
             }
-            return Json("Thêm mới thất bại", JsonRequestBehavior.AllowGet);
+            return Json("NO", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DetailHB()
@@ -69,17 +68,19 @@ namespace QuanLyHocSinhDuHoc.Controllers
             {
                 int id_hs = (int)Session["id_hsDetail"];
                 HOCSINH hocsinh = db.HOCSINHs.Find(id_hs);
-                
-                    if (hocsinh.id_HB > 0)
+
+                if (hocsinh.id_HB > 0)
+                {
+                    ViewBag.ThongbaoHB = "OK";
+                    HOCBA hb = db.HOCBAs.Find(hocsinh.id_HB);
+                    List<NAMHOC> listNamHoc = db.NAMHOCs.Where(n => n.id_HB == hocsinh.id_HB).ToList();
+                    ViewBag.listNamHoc = listNamHoc; //load nam hoc               
+                    List<DiemKyHoc> listDiem = new List<DiemKyHoc>();
+                    if (listNamHoc.Count > 0)
                     {
-                        ViewBag.ThongbaoHB = "OK";
-                        HOCBA hb = db.HOCBAs.Find(hocsinh.id_HB);
-                        List<NAMHOC> listNamHoc = db.NAMHOCs.Where(n => n.id_HB == hocsinh.id_HB).ToList();
-                        ViewBag.listNamHoc = listNamHoc; //load nam hoc               
-                        List<DiemKyHoc> listDiem = new List<DiemKyHoc>();
-                        if (listNamHoc.Count > 0)
+                        foreach (var item in listNamHoc)
                         {
-                            foreach (var item in listNamHoc)
+                            if (item.StatusNH == true)
                             {
                                 List<KIHOC> listKH = db.KIHOCs.Where(n => n.id_NAMHOC == item.id).ToList();
                                 if (listKH.Count > 0)
@@ -89,13 +90,14 @@ namespace QuanLyHocSinhDuHoc.Controllers
                                 }
                             }
                         }
-                        ViewBag.listKiHoc = listDiem;
-                        return View(hb);
-
                     }
-                    ViewBag.ThongbaoHB = "NO";
-                    return View();
-                
+                    Session["id_hocba"] = hocsinh.id_HB;
+                    ViewBag.listKiHoc = listDiem;
+                    return View(hb);
+                }
+                ViewBag.ThongbaoHB = "NO";
+                return View();
+
             } return RedirectToAction("Index", "Home");
         }
         public ActionResult SuaHB(int id)

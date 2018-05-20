@@ -30,7 +30,7 @@
                                         Ngày sinh <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input class="form-control has-feedback-left active dateLoad" name="NgaySinh" id="dtpNgaySinhHB" type="date" value="@Model.NgaySinh.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input class="form-control has-feedback-left active dateLoad" name="NgaySinh" id="dtpNgaySinhHB" type="text" value="@Model.NgaySinh.ToString("MM-dd-yyyy")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 @* Gioi tinh ?? *@
@@ -152,7 +152,7 @@
                                         Ngày lập <span class="required"></span>
                                     </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input style="width:117.3%;" class="form-control has-feedback-left active dateLoad" name="NgayLap" id="dtpNgayLapHB" type="date" value="@Model.NgayLap.ToString("yyyy-MM-dd")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <input style="width:117.3%;" class="form-control has-feedback-left active dateLoad" name="NgayLap" id="dtpNgayLapHB" type="text" value="@Model.NgayLap.ToString("MM-dd-yyyy")" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <p id="messSuaHB" style="color:red;font-weight:bold;"></p>
@@ -178,9 +178,33 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        var time = $(".dateLoad").val();
-        var dateControl = document.querySelector('input[type="date"]'); dateControl.value = time;
+        var now = new Date();
+        var dateNow = now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
+        $("#dtpNgaySinhHB").val(dateNow);
+        $("#dtpNgayLapHB").val(dateNow);
+        $("#dtpNgaySinhHB").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayLapHB").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
     });
+
+
+
     $("#submitEditHB").click(function () {
         if ($("#HoTenHB").val() == "" || $("#dtpNgaySinhHB").val() == "" || $("#NoiSinhHB").val() == "" || $('[name="GioiTinh"]:radio:checked').val() == "" ||
             $("#DanTocHB").val() == "" || $("#NoiSongHienTaiHB").val() == "" || $("#HoTenBoHB").val() == "" || $("#NgheNghiepBoHB").val() == "" ||

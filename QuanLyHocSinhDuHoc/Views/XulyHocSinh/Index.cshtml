@@ -102,12 +102,23 @@
                                                             <a data-toggle="tooltip" data-placement="bottom" target="_blank" title="Sửa" href="@Url.Action("ChinhSua", "XulyHocSinh", new {@id=@item.id})">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
-                                                            <button data-toggle="tooltip" data-placement="bottom" type="button"  title="Gửi thông báo" onclick="ThongBao(@item.id)">
-                                                                <i class="fa fa-envelope-o"></i>
-                                                             </button >
+                                                            @{
+                                                                    if (@item.Status == true)
+                                                                    {
+                                                                        <a data-toggle="tooltip" data-placement="bottom" href="#" title="Đã thông báo"  onclick="ThongBao(@item.id)">
+                                                                            <i id="@item.id" class="fa fa-send-o"></i>
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a data-toggle="tooltip" data-placement="bottom" href="#" title="Gửi thông báo" onclick="ThongBao(@item.id)">
+                                                                            <i id="@item.id" class="fa fa-envelope-o"></i>
+                                                                        </a>
+                                                                    }
+}
+                                                           
                                                         </td>
                                                     </tr>
-
                                                     i = @i + 1;
                                                 }
                                             }
@@ -193,7 +204,15 @@
             data:JSON.stringify({id_loi:id_loi}),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                window.location.href = '/XulyHocSinh/Index?page=' + data;
+                if(data =="YES")
+                {
+                    $("#"+id_loi).removeClass("fa fa-envelope-o");
+                    $("#"+id_loi).addClass( "fa fa-send-o" );                   
+                    alert("Gửi thông báo thành công!!!");
+                }
+                    
+                else alert("Gửi thông báo thất bại & hãy gọi điện thông báo!");
+                //window.location.href = '/XulyHocSinh/Index?page=' + data;
             },
             error: function (err) {
                 alert("Error: " + err.responseText);

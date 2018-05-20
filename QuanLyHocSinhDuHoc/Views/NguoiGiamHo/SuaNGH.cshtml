@@ -1,0 +1,630 @@
+﻿@model QuanLyHocSinhDuHoc.Models.Entities.NGUOIGIAMHO
+@{
+    ViewBag.Title = "Cập nhật người giám hộ";
+    Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
+}
+
+@{
+    if (Model.LoaiCMT == 1)
+    {
+        @* Loại 1 *@
+        <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Chỉnh sửa thông tin CMT Loại 1</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" method="post">
+                                <p id="messEditCMT" style="color:red;font-weight:bold;"></p>
+                                <div class=" item form-group">
+                                    <button id="btn_fileCMT1Edit" type="button" onclick="$('#fileCMT1Edit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
+                                    <input type="file" id="fileCMT1Edit" name="fileCMT1Edit" style="display: none;" class="form-control">
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Số chứng minh <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="SoCMTS1" name="SoCMT" value=@Model.SoCMT type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        File CMT<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="filecmt1" name="file_CMTNGH" value="@Model.file_CMTNGH.ToString()" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Họ tên <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="HoTenS1" name="HoTen" value="@Model.HoTen" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày sinh <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" value="@Model.NgaySinh.ToString("MM-dd-yyyy")" name="NgaySinh" id="dtpNgaySinhS1" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Quê quán
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.QueQuan" name="QueQuan" id="QueQuanS1" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi thường trú
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.NoiThuongTru" name="NoiThuongTru" id="NoiThuongTruS1" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tôn giáo
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="TonGiaoS1" class="form-control col-md-7 col-xs-12" value="@Model.TonGiao" name="TonGiao" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Dân tộc
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="DanTocS1" class="form-control col-md-7 col-xs-12" value="@Model.DanToc" name="DanToc" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Dấu vết riêng
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea id="DauVetRiengS1" name="DauVetRieng" class="form-control col-md-7 col-xs-12">@Model.DauVetRieng</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày cấp <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" value="@Model.NgayCap.ToString("MM-dd-yyyy")" name="NgayCap" id="dtpNgayCapS1" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi cấp
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="NoiCapS1" class="form-control col-md-7 col-xs-12" value="@Model.NoiCap" name="NoiCap" type="text" />
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="submit" id="submitEditCMT1" class="btn btn-success">Lưu thông tin</button>
+                                        <a href="/HocSinh/DetailChung/@ViewBag.id_hs" class="btn btn-primary">Huỷ</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (Model.LoaiCMT == 2)
+    {
+        @* Loại 2 *@
+        <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Thêm mới thông tin CMT Loại 2</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" method="post">
+                                <p id="messEditCMT" style="color:red;font-weight:bold;"></p>
+                                <div class=" item form-group">
+                                    <button id="btn_fileCMT2Edit" type="button" onclick="$('#fileCMT2Edit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                                    <input type="file" id="fileCMT2Edit" name="fileCMT2Edit" style="display: none;" class="form-control">
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Số chứng minh <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.SoCMT" id="SoCMTS2" name="SoCMT" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        File CMT<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="filecmt2" name="file_CMTNGH" value="@Model.file_CMTNGH.ToString()" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Họ tên <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="HoTen" id="HoTenS2" value="@Model.HoTen" required="required" placeholder="Họ tên" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên gọi khác <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="TenGoiKhac" value="@Model.TenGoiKhac" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày sinh <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" name="NgaySinh" value="@Model.NgayCap.ToString("MM-dd-yyyy")" id="dtpNgaySinhS2" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Quê quán
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.QueQuan" name="QueQuan" id="QueQuanS2" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi thường trú
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.NoiThuongTru" name="NoiThuongTru" id="NoiThuongTruS2" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Giới tính
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @{
+        if (Model.GioiTinh == "Nam")
+        {
+            <label class="radio-inline">
+                <input type="radio" name="GioiTinh" checked="checked" value="Nam" /> Nam
+            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="GioiTinh" value="Nữ" /> Nữ
+                                            </label>
+        }
+        else
+        {
+            <label class="radio-inline">
+                <input type="radio" name="GioiTinh" value="Nam" /> Nam
+            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="GioiTinh" checked="checked" value="Nữ" /> Nữ
+                                            </label>
+        }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Dân tộc
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="DanTocS2" class="form-control col-md-7 col-xs-12" value="@Model.DanToc" name="DanToc" type="text" placeholder="Dân tộc" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Gía trị đến <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" value="@Model.GiaTriDen.Value.ToString("MM-dd-yyyy")" type="text" name="GiaTriDen" id="dtpGiaTriDenS2" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Dấu vết riêng
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea id="DauVetRiengS2" name="DauVetRieng" class="form-control col-md-7 col-xs-12">@Model.DauVetRieng</textarea>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày cấp <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" value="@Model.NgayCap.ToString("MM-dd-yyyy")" name="NgayCap" id="dtpNgayCapS2" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi cấp
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="NoiCapS2" class="form-control col-md-7 col-xs-12" name="NoiCap" value="@Model.NoiCap" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="submit" id="submitEditCMT2" class="btn btn-success">Lưu thông tin</button>
+                                        <a href="/HocSinh/DetailChung/@ViewBag.id_hs" class="btn btn-primary">Huỷ</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (Model.LoaiCMT == 3)
+    {
+
+        @* Loại 3 *@
+        <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Thêm mới thông tin CMT Loại 3</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" method="post">
+                                <p id="messEditCMT" style="color:red;font-weight:bold;"></p>
+                                <div class=" item form-group">
+                                    <button id="btn_fileCMT3Edit" type="button" onclick="$('#fileCMT3Edit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                                    <input type="file" id="fileCMT3Edit" name="fileCMT3Edit" style="display: none;" class="form-control">
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Số chứng minh <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.SoCMT" id="SoCMTS3" name="SoCMT" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group" hidden>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        File CMT<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="filecmt3" name="file_CMTNGH" value="@Model.file_CMTNGH type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Họ tên <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="HoTen" value="@Model.HoTen" id="HoTenS3" required="required" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên gọi khác <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" value="@Model.TenGoiKhac" name="TenGoiKhac" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày sinh <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" value="@Model.NgaySinh.ToString("MM-dd-yyyy")" name="NgaySinh" id="dtpNgaySinhS3" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Quê quán
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="QueQuan" value="@Model.QueQuan" id="QueQuanS3" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi thường trú
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" name="NoiThuongTru" value="@Model.NoiThuongTru" id="NoiThuongTruS3" type="text" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Giới tính
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @{
+                                            if (Model.GioiTinh == "Nam")
+                                            {
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" checked="checked" value="Nam" /> Nam
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="Nữ" /> Nữ
+                                                </label>
+                                            }
+                                            else
+                                            {
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="Nam" /> Nam
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" checked="checked" value="Nữ" /> Nữ
+                                                </label>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Quốc tịch
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="QuocTichS3" class="form-control col-md-7 col-xs-12" name="QuocTich" type="text" value="@Model.QuocTich" />
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Gía trị đến <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" value="@Model.GiaTriDen.Value.ToString("MM-dd-yyyy")" name="GiaTriDen" id="dtpGiaTriDenS3" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Dấu vết riêng
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea id="DauVetRiengS3" name="DauVetRieng" class="form-control col-md-7 col-xs-12">@Model.DauVetRieng</textarea>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Ngày cấp <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control has-feedback-left active dateLoad" type="text" value="@Model.NgayCap.ToString("MM-dd-yyyy")" name="NgayCap" id="dtpNgayCapS3" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Nơi cấp
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="NoiCapS3" class="form-control col-md-7 col-xs-12" name="NoiCap" value="@Model.NoiCap" type="text" />
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="submit" id="submitEditCMT3" class="btn btn-success">Lưu thông tin</button>
+                                        <a href="/HocSinh/DetailChung/@ViewBag.id_hs" class="btn btn-primary">Huỷ</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+} 
+<script type="text/javascript">
+    //format datetime CMT1
+    $(document).ready(function () {
+        $("#dtpNgaySinhS3").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpGiaTriDenS3").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayCapS3").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+    //end
+    //format datetime CMT2
+    $(document).ready(function () {
+        $("#dtpNgaySinhS2").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpGiaTriDenS2").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayCapS2").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+    //end
+    //format datetime CMT1
+    $(document).ready(function () {
+        $("#dtpNgaySinhS1").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayCapS1").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+    //end
+    $(document).ready(function () {
+        $("#fileCMT1Edit").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT1Edit").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+        $("#fileCMT2Edit").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT2Edit").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+        $("#fileCMT3Edit").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileCMT3Edit").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XuLyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+    });
+    $("#submitEditCMT1").click(function () {
+        if ($("#SoCMTS1").val() == "" || $("#HoTenS1").val() == "" || $("#dtpNgaySinhS1").val() == "" || $("#QueQuanS1").val() == "" ||
+            $("#NoiThuongTruS1").val() == "" || $("#DanTocS1").val() == "" ||
+            $("#DauVetRiengS1").val() == "" || $("#dtpNgayCapS1").val() == "" || $("#NoiCapS1").val() == "") {
+            $("#messEditCMT").text("Thông tin không được để trống !");
+        }
+    });
+    $("#submitEditCMT2").click(function () {
+        if ($("#SoCMTS2").val() == "" || $("#HoTenS2").val() == "" || $("#dtpNgaySinhS2").val() == "" || $("#QueQuanS2").val() == "" ||
+            $("#NoiThuongTruS2").val() == "" || $("#dtpGiaTriDenS2").val() == "" || $("#DanTocS2").val() == "" ||
+            $("#DauVetRiengS2").val() == "" || $("#dtpNgayCapS2").val() == "" || $("#NoiCapS2").val() == "")
+            $("#messEditCMT").text("Thông tin không được để trống !");
+
+    });
+    $("#submitEditCMT3").click(function () {
+        if ($("#SoCMTS3").val() == "" || $("#HoTenS3").val() == "" || $("#dtpNgaySinhS3").val() == "" || $("#QueQuanS3").val() == "" ||
+            $("#NoiThuongTruS3").val() == "" || $("#QuocTichS3").val() == "" || $("#dtpGiaTriDenS3").val() == "" || $("#DanTocS3").val() == "" ||
+            $("#DauVetRiengS3").val() == "" || $("#dtpNgayCapS3").val() == "" || $("#NoiCapS3").val() == "")
+            $("#messEditCMT").text("Thông tin không được để trống");
+    });
+    //$(document).ready(function () {
+    //    var time = $(".dateLoad").val();
+    //    var dateControl = document.querySelector('input[type="date"]'); dateControl.value = time;
+    //});
+</script>
+

@@ -16,7 +16,7 @@
                             <div class="row">
                                 <div class="col-md-10 col-sm-10 col-xs-10">
                                     <div class=" item form-group">
-                                        <button id="btn_fileGKSCN" type="button" onclick="$('#filegksCapNhat').click()" class="btn btn-sm btn-primary" style="width:230px;">Cập nhật file</button>
+                                        <button id="btn_fileGKSCN" type="button" onclick="$('#filegksCapNhat').click()" class="btn btn-sm btn-primary" style="width:230px;">Cập nhật file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                                         <input type="file" id="filegksCapNhat" name="filegksCapNhat" style="display: none;" class="form-control">
                                     </div>
                                 </div>
@@ -278,7 +278,8 @@
             contentType: false,
             data: data,
             success: function (data) {
-                console.log(data);
+                if (data == "NO")
+                    alert("Lỗi loại file lưu trữ");
             },
             error: function (er) {
                 alert(er);

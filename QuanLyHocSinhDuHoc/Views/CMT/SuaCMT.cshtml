@@ -21,7 +21,7 @@
                                 <form class="form-horizontal form-label-left" method="post">
                                     <p id="messEditCMT" style="color:red;font-weight:bold;"></p>
                                     <div class=" item form-group">
-                                        <button id="btn_fileCMT1Edit" type="button" onclick="$('#fileCMT1Edit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                                        <button id="btn_fileCMT1Edit" type="button" onclick="$('#fileCMT1Edit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                                         <input type="file" id="fileCMT1Edit" name="fileCMT1Edit" style="display: none;" class="form-control">
                                     </div>
                                     <div class="item form-group" hidden>
@@ -548,7 +548,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);

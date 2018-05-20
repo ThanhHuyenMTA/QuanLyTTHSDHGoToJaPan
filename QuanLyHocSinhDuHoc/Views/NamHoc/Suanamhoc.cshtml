@@ -1,0 +1,73 @@
+﻿@model  QuanLyHocSinhDuHoc.Models.Entities.NAMHOC
+@{
+    ViewBag.Title = "Suanamhoc";
+    Layout = "~/Views/Share/_LayoutTrangChu.cshtml";
+}
+<div class="" id="formNH">
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Cập nhật thông tin năm học</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="form-horizontal form-label-left" method="post" id="ThemmoiNamHoc">
+                        <div class="row">
+                            @* Phan 1 *@
+                            <div class="col-md-9 col-sm-9 col-xs-12" hidden>
+                                <input class="form-control col-md-7 col-xs-12" id="id" name="id"  value="@Model.id" type="text" />
+                                <input class="form-control col-md-7 col-xs-12" id="id_HB" name="id_HB" value="@Model.id_HB" type="text" />
+                                <input class="form-control col-md-7 col-xs-12" id="StatusNH" name="StatusNH" value="@Model.StatusNH.ToString()" type="text"  />
+
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Thới gian <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="ThoiGian" name="ThoiGian" required="required" value="@Model.ThoiGian" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên lớp
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="TenLop" name="TenLop" required="required" value="@Model.TenLop" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Tên trường
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input class="form-control col-md-7 col-xs-12" id="TenTruong" name="TenTruong" required="required" value="@Model.TenTruong" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="ln_solid"></div>
+                            @*chức năng*@
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button class="btn btn-success" type="submit" style="margin-left:30%;">Lưu thông tin</button>
+                                    <a href="/HocSinh/DetailChung/@ViewBag.id_hs" class="btn btn-primary">Huỷ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

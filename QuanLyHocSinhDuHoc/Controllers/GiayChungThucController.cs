@@ -129,5 +129,18 @@ namespace QuanLyHocSinhDuHoc.Controllers
             Session["chuyenTab"] = 8;
             return RedirectToAction("DetailChung", "HocSinh", new { id = id_hs });
         }
+        public ActionResult Xoa(int id)
+        {
+            GIAYCHUNGTHUC gcthuc = db.GIAYCHUNGTHUCs.Find(id);
+            if(gcthuc!=null)
+            {
+                db.GIAYCHUNGTHUCs.Remove(gcthuc);
+                db.SaveChanges();
+                int id_hs = (int)Session["id_hsDetail"];
+                Session["chuyenTab"] = 8;
+                return RedirectToAction("DetailChung", "HocSinh", new { id = id_hs });
+            }
+            return View();
+        }
     }
 }

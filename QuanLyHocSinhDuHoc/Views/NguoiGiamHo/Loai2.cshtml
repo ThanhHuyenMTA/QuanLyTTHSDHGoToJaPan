@@ -10,7 +10,7 @@
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="post">
                         <div class=" item form-group">
-                            <button  type="button" onclick="$('#fileCMT2NGH').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                            <button  type="button" onclick="$('#fileCMT2NGH').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                             <input type="file" id="fileCMT2NGH" name="fileCMT2NGH" style="display: none;" class="form-control">
                         </div>
                         <div class="item form-group">
@@ -18,7 +18,7 @@
                                 Số chứng minh <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" id="SoCMT2NGH" name="SoCMT" type="text" />
+                                <input class="form-control col-md-7 col-xs-12" id="SoCMT2NGH" name="SoCMT" type="text" required="required" placeholder="Số chứng minh" />
                             </div>
                         </div>
                         <div class="item form-group">
@@ -42,7 +42,7 @@
                                 Ngày sinh <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinh2NGH" type="date" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="NgaySinh" id="dtpNgaySinh2NGH" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -87,7 +87,7 @@
                                 Gía trị đến <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="GiaTriDen" id="dtpGiaTriDen2NGH" type="date" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="GiaTriDen" id="dtpGiaTriDen2NGH" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -103,7 +103,7 @@
                                 Ngày cấp <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control has-feedback-left active" name="NgayCap" id="dtpNgayCap2NGH" type="date" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <input class="form-control has-feedback-left active" name="NgayCap" id="dtpNgayCap2NGH" type="text" /><span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -129,6 +129,45 @@
     </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function () {
+        //format datetime
+        var now = new Date();
+        var dateNow = now.getMonth() + 1 + "/" + now.getDate() + "/" + now.getFullYear();
+        $("#dtpNgaySinh2NGH").val(dateNow);
+        $("#dtpGiaTriDen2NGH").val(dateNow);
+        $("#dtpNgayCap2NGH").val(dateNow);
+        $("#dtpNgaySinh2NGH").daterangepicker({
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpGiaTriDen2NGH").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+        $("#dtpNgayCap2NGH").daterangepicker({
+
+            singleDatePicker: true,
+            calender_style: 'picker_1',
+            locale: {
+                format: "MM-DD-YYYY"
+            },
+        }, function (start, end, laber) {
+            console.log(start.toISOString(), end.toISOString(), laber);
+        });
+    });
+
+
     function SaveCMT2NGH() {
         if ($("#SoCMT2NGH").val() == "" || $("#HoTen2NGH").val() == "" || $("#dtpNgaySinh2NGH").val() == "" || $("#QueQuan2NGH").val() == "" ||
             $("#NoiThuongTru2NGH").val() == "" || $("#dtpGiaTriDen2NGH").val() == "" || $("#DanToc2NGH").val() == "" ||

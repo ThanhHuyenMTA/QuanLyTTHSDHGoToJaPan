@@ -76,7 +76,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenGiay" Type="nvarchar" MaxLength="300" />
-    <Property Name="Anh" Type="text" />
+    <Property Name="Anh" Type="ntext" />
     <Property Name="MoTa" Type="ntext" />
     <Property Name="id_HSHS" Type="int" />
   </EntityType>
@@ -215,6 +215,7 @@
     <Property Name="NgheNghiep" Type="nvarchar" MaxLength="200" />
     <Property Name="QuanHe" Type="nvarchar" MaxLength="200" />
     <Property Name="id_hs" Type="int" />
+    <Property Name="fileSHK" Type="ntext" />
   </EntityType>
   <EntityType Name="HOPDONG">
     <Key>
@@ -277,8 +278,9 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ThoiGian" Type="nvarchar" MaxLength="20" />
     <Property Name="TenLop" Type="nvarchar" MaxLength="50" />
-    <Property Name="TenTruong" Type="nvarchar" MaxLength="100" />
+    <Property Name="TenTruong" Type="nvarchar" MaxLength="200" />
     <Property Name="id_HB" Type="int" />
+    <Property Name="StatusNH" Type="bit" />
   </EntityType>
   <EntityType Name="NGUOIGIAMHO">
     <Key>
@@ -356,6 +358,7 @@
     <Property Name="TimeEnd" Type="datetime" />
     <Property Name="TrangThai" Type="varchar" MaxLength="20" />
     <Property Name="NguoiSua" Type="int" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <Function Name="PhanTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NguoiTao" Type="int" Mode="In" />

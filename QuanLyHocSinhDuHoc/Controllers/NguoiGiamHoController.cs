@@ -202,6 +202,46 @@ namespace QuanLyHocSinhDuHoc.Controllers
             Session["file"] = null;
             return Json("Khong", JsonRequestBehavior.AllowGet);
         }
+        public ActionResult SuaNGH(string soCMT, int loaiCMT)
+        {
+            ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
+            {
+                Session["file"] = null;
+                NGUOIGIAMHO nggiamho = db.NGUOIGIAMHOes.Find(soCMT);
+                ViewBag.LoaiCMT = loaiCMT;
+                HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_NgGiamHo == soCMT);
+                if ( hs!=null && quyenNguoiDung.Nhanvien.id == hs.NguoiTao)
+                {
+                    ViewBag.id_hs = hs.id;
+                    Session["chuyenTab"] = 6;
+                    return View(nggiamho);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult SuaNGH(NGUOIGIAMHO ngGiamho) //chú ý kh lấy đc id_hs=> update bảng học sinh khi đã chỉnh sửa
+        {
+            ModelQuyenNguoiDung quyenNguoiDung = Session["QuyenNguoiDung"] as ModelQuyenNguoiDung;
+            if (quyenNguoiDung != null && (quyenNguoiDung.Quyen.Ten == "QuanLyThongTinHocSinh" || quyenNguoiDung.Quyen.Ten == "Admin"))
+            {
+                if (ModelState.IsValid)
+                {
+                    int id_hs = (int)Session["id_hsDetail"];
+                    if (Session["file"] != null)
+                    {
+                        ngGiamho.file_CMTNGH = (string)Session["file"];
+                    }
+                    db.Entry(ngGiamho).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    Session["chuyenTab"] = 6;
+                    return RedirectToAction("DetailChung/" + id_hs, "HocSinh");
+                }
+                return View(ngGiamho);
+            } return RedirectToAction("Index", "Home");
+        }
 
     }
 }

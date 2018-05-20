@@ -19,5 +19,6 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
         public string TenLop { get; set; }
         public string TenTruong { get; set; }
         public Nullable<int> id_HB { get; set; }
+        public Nullable<bool> StatusNH { get; set; }
     }
 }

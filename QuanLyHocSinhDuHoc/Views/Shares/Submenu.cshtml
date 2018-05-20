@@ -15,7 +15,13 @@
             </div>
             <div class="profile_info">
                 <span>Chào mừng,</span>
-                <h2>Thanh Huyền</h2>
+                @{
+                    if (Session["NguoiDung"] != null)
+                    {
+                        <h2>@Session["NguoiDung"]</h2>
+                    }
+                }
+               
             </div>
         </div>
         <br />
@@ -91,16 +97,14 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right" >
-                        <li >
-                            <a href="~/QuanTri/TaiKhoan/ThongTinTaiKhoan.html" style="color:#5A738E;">Thông tin tài khoản</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" style="color:#5A738E;">
-                                <span class="badge bg-red pull-right">50%</span>
-                                <span>Cài đặt</span>
-                            </a>
-                        </li>
-                        <li><a href="javascript:;" style="color:#5A738E;">Trợ giúp</a></li>
+                        @{
+                            if (Session["QuyenNguoiDung"] != null && Session["NguoiDungHT"] !=null)
+                            {        
+                                <li>
+                                    <a href="@Url.Action("DetailTaiKhoan", "CaNhanNguoiDung", new { id =modelND.Nhanvien.id})" style="color:#5A738E;">Thông tin tài khoản</a>
+                                </li>
+                            }
+                        }
                         <li>
                             <a id="lnkDangXuat" href="@Url.Content("/DangNhap/DangXuat/")" style="color:#5A738E;">
                                 <i class="fa fa-sign-out pull-right"></i>Thoát
@@ -115,59 +119,71 @@
                         <span class="badge bg-green">1</span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
-                            <a href="@Url.Action("IndexTbDo","XulyHocSinh")" target="_blank" style="color:#5A738E;">
-                                <span class="image">
-                                    <i class=" fa fa-snapchat" style="color:#ff0000;"></i>
-                                </span>
-                                <span>
-                                    <span>Thông báo Lỗi</span>
-                                    @{
-                                        var listDo = Session["ThongBaoDo"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
-                                        <span class="time">@listDo.Count</span>
-                                    }
+                        @{
+                            if (Session["ThongBaoDo"] != null)
+                            {
+                                <li>
+                                    <a href="@Url.Action("IndexTbDo","XulyHocSinh")" target="_blank" style="color:#5A738E;">
+                                        <span class="image">
+                                            <i class=" fa fa-snapchat" style="color:#ff0000;"></i>
+                                        </span>
+                                        <span>
+                                            <span>Thông báo Lỗi</span>
+                                            @{
+                                                     var listDo = Session["ThongBaoDo"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
+                                                    <span class="time">@listDo.Count</span>
+                                            }
 
-                                </span>
-                                <span class="message">
-                                    Rất quan trọng
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("IndexTbVang","XulyHocSinh")" target="_blank" style="color:#5A738E;">
-                                <span class="image">
-                                    <i class=" fa fa-snapchat" style="color:#ffd800;"></i>
-                                </span>
-                                @{
-                                    var listVang = Session["ThongBaoVang"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
-                                }
-                                <span>
-                                    <span>Thông báo Lỗi</span>
-                                    <span class="time">@listVang.Count</span>
-                                </span>
-                                <span class="message">
-                                    Quan trọng
-                                </span>
-                            </a>
+                                        </span>
+                                        <span class="message">
+                                            Rất quan trọng
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            if (Session["ThongBaoVang"] != null)
+                            {
+                                <li>
+                                    <a href="@Url.Action("IndexTbVang","XulyHocSinh")" target="_blank" style="color:#5A738E;">
+                                        <span class="image">
+                                            <i class=" fa fa-snapchat" style="color:#ffd800;"></i>
+                                        </span>
+                                        @{
+                                                var listVang = Session["ThongBaoVang"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
+                                        }
+                                        <span>
+                                            <span>Thông báo Lỗi</span>
+                                            <span class="time">@listVang.Count</span>
+                                        </span>
+                                        <span class="message">
+                                            Quan trọng
+                                        </span>
+                                    </a>
 
-                        </li>
-                        <li>
-                            <a href="@Url.Action("IndexTbXanh","XulyHocSinh")" target="_blank" style="color:#5A738E;">
-                                <span class="image">
-                                    <i class=" fa fa-snapchat" style="color:#00ff21;"></i>
-                                </span>
-                                @{
-                                    var listXanh = Session["ThongBaoXanh"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
-                                }
-                                <span>
-                                    <span>Thông báo Lỗi</span>
-                                    <span class="time">@listXanh.Count</span>
-                                </span>
-                                <span class="message">
-                                    Khá quan trọng
-                                </span>
-                            </a>
-                        </li>
+                                </li>
+                            }
+                            if (Session["ThongBaoXanh"] != null)
+                            {
+                                <li>
+                                    <a href="@Url.Action("IndexTbXanh","XulyHocSinh")" target="_blank" style="color:#5A738E;">
+                                        <span class="image">
+                                            <i class=" fa fa-snapchat" style="color:#00ff21;"></i>
+                                        </span>
+                                        @{
+                                             var listXanh = Session["ThongBaoXanh"] as List<QuanLyHocSinhDuHoc.Models.Entities.TABLE_LOI>;
+                                        }
+                                        <span>
+                                            <span>Thông báo Lỗi</span>
+                                            <span class="time">@listXanh.Count</span>
+                                        </span>
+                                        <span class="message">
+                                            Khá quan trọng
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                         }
+
                         @*<li>
                             <div class="text-center">
                                 <a>

@@ -22,5 +22,6 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
         public string NgheNghiep { get; set; }
         public string QuanHe { get; set; }
         public Nullable<int> id_hs { get; set; }
+        public string fileSHK { get; set; }
     }
 }

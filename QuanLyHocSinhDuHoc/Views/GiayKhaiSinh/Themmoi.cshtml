@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class=" item form-group">
-                                    <button id="btn_fileGKS" type="button" onclick="$('#filegks').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                                    <button id="btn_fileGKS" type="button" onclick="$('#filegks').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                                     <input type="file" id="filegks" name="filegks" style="display: none;" class="form-control">
                                     <p id="messThemGKS" style="color:red;font-weight:bold;"></p>
                                 </div>
@@ -252,7 +252,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);

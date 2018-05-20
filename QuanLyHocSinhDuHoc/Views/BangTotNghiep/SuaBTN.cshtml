@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-8">
                                 <div class=" item form-group">
-                                    <button id="btn_fileBTNEdit" type="button" onclick="$('#filebtnEdit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+                                    <button id="btn_fileBTNEdit" type="button" onclick="$('#filebtnEdit').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                                     <input type="file" id="filebtnEdit" name="filebtnEdit" style="display: none;" class="form-control">
                                 </div>
                                 <div class="item form-group">
@@ -198,7 +198,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);

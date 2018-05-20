@@ -1,4 +1,4 @@
-﻿@*@model QuanLyHocSinhDuHoc.Models.Entities*@
+﻿@model QuanLyHocSinhDuHoc.Models.Entities.HoKhau
 
 @{
     ViewBag.Title = "Sua";
@@ -18,57 +18,63 @@
                         <div class="row">
                             <div class="col-md-10 col-sm-10 col-xs-10">
                                 <br /><br />
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Họ tên <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="HoTen" name="HoTen" required="required" value="@Model.HoTen" type="text" />
-                                    </div>
+                                <div class="item form-group" hidden>
+                                    <input class="form-control col-md-7 col-xs-12" id="id_hokhau" name="id_hokhau"  value="@Model.id_hokhau" type="text" />
+                                 </div>
+                                <div class="item form-group" hidden>
+                                    <input class="form-control col-md-7 col-xs-12" id="id_hs" name="id_hs"  value="@Model.id_hs" type="text" />
                                 </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Quốc tịch
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="QuocTich" name="QuocTich" type="text" value="@Model.QuocTich" />
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Họ tên <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="HoTen" name="HoTen" required="required" value="@Model.HoTen" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Quốc tịch
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="QuocTich" name="QuocTich" type="text" value="@Model.QuocTich" />
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Tuổi
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="Tuoi" name="Tuoi" value="@Model.Tuoi" type="text" />
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Tuổi
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="Tuoi" name="Tuoi" value="@Model.Tuoi" type="number" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Địa chỉ
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="DiaChi" name="DiaChi" value="@Model.DiaChi" type="number" />
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Địa chỉ
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="DiaChi" name="DiaChi" value="@Model.DiaChi" type="text" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Nghề nghiệp
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="NgheNghiep" name="NgheNghiep" value="@Model.NgheNghiep" type="text" />
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Nghề nghiệp
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="NgheNghiep" name="NgheNghiep" value="@Model.NgheNghiep" type="text" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Quan hệ
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input class="form-control col-md-7 col-xs-12" id="QuanHe" name="QuanHe" value="@Model.QuanHe" type="text" />
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Quan hệ
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" id="QuanHe" name="QuanHe" value="@Model.QuanHe" type="text" />
+                                        </div>
                                     </div>
+                                    <p id="messThemHS" style="color:red;font-weight:bold;"></p>
                                 </div>
-                                <p id="messThemHS" style="color:red;font-weight:bold;"></p>
-                            </div>
                         </div>
 
                         <div class="row">
@@ -76,8 +82,8 @@
                             @*chức năng*@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button class="btn btn-success" type="button" id="CapNhatSoHoKhau" style="margin-left:30%;">Lưu thông tin</button>
-                                    <a href="/HocSinh/Index" class="btn btn-primary">Huỷ</a>
+                                    <button class="btn btn-success" type="submit" id="CapNhatSoHoKhau" style="margin-left:10%;">Lưu thông tin</button>
+                                    <a href="/HocSinh/DetailChung/@Model.id_hs" class="btn btn-primary">Huỷ</a>
                                 </div>
                             </div>
                         </div>

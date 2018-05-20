@@ -38,7 +38,6 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
         public virtual DbSet<HOSOH> HOSOHS { get; set; }
         public virtual DbSet<KIHOC> KIHOCs { get; set; }
         public virtual DbSet<LOTRINH> LOTRINHs { get; set; }
-        public virtual DbSet<NAMHOC> NAMHOCs { get; set; }
         public virtual DbSet<TABLE_LOI> TABLE_LOI { get; set; }
         public virtual DbSet<HoKhau> HoKhaus { get; set; }
         public virtual DbSet<GiayNhapHoc> GiayNhapHocs { get; set; }
@@ -49,6 +48,7 @@ namespace QuanLyHocSinhDuHoc.Models.Entities
         public virtual DbSet<NGUOIGIAMHO> NGUOIGIAMHOes { get; set; }
         public virtual DbSet<CMT> CMTs { get; set; }
         public virtual DbSet<HOCSINH> HOCSINHs { get; set; }
+        public virtual DbSet<NAMHOC> NAMHOCs { get; set; }
     
         public virtual ObjectResult<PhanTrang_Result> PhanTrang(Nullable<int> nguoiTao, Nullable<int> lineStart, Nullable<int> soBanGhi)
         {

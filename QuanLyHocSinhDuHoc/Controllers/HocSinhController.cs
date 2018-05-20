@@ -220,8 +220,13 @@ namespace QuanLyHocSinhDuHoc.Controllers
             {
                 Session["id_hsDetail"] = id; //được gọi khi thực hiện cập nhật thông tin học sinh(HS,CMT,GKS,BTN...)
                 HOCSINH hocsinh = db.HOCSINHs.Find(id);
-                if (hocsinh.NguoiTao == quyenNguoiDung.Nhanvien.id)
-                     return View(hocsinh);
+                if (hocsinh != null)
+                {
+                    if (hocsinh.NguoiTao == quyenNguoiDung.Nhanvien.id)
+                        return View(hocsinh);
+                }
+                else return View();
+               
             } return RedirectToAction("Index", "Home");
         }
 

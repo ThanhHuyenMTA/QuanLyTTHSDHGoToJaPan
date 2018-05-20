@@ -38,16 +38,19 @@ namespace QuanLyHocSinhDuHoc.Controllers
                 }
                 else
                 {
-                    if (type == "application/docx" || type == "application/pdf")
-                        file.SaveAs(path);
+                    if (type == "application/pdf")
+                    {
+                        file.SaveAs(path);                       
+                    }                        
                 }
-                Session["file"] = fileName;
-               
-                
-                return Json(fileName, JsonRequestBehavior.AllowGet);
+                if (type == "application/pdf")
+                {
+                    Session["file"] = fileName;
+                    return Json("YES", JsonRequestBehavior.AllowGet);
+                }
             }
             Session["file"] = null;
-            return Json("Khong", JsonRequestBehavior.AllowGet);
+            return Json("NO", JsonRequestBehavior.AllowGet);
         }
         //load file 
         public ActionResult TestPdf(string url)
@@ -754,5 +757,82 @@ namespace QuanLyHocSinhDuHoc.Controllers
             }
             return RedirectToAction("Index", "Home");   
          }
+
+        [HttpPost]
+        public JsonResult ThongBao(int id_loi)
+        {
+            TABLE_LOI tableLoi = db.TABLE_LOI.Find(id_loi);
+            
+            if(tableLoi.id_HS >0)
+            {
+                HOCSINH hs = db.HOCSINHs.Find(tableLoi.id_HS);
+                if(hs!=null && hs.email !=null)
+                {
+                    Senmail senmail = new Senmail();
+                    senmail.SendEmail(hs.email, "Hiện tại thông tin bạn đang có sự khác nhau về '"+tableLoi.TypeLOI+"' trên các giấy tờ.\n Vì vậy tôi mong bạn có thể gửi lại thông tin để chúng tôi hoặc bạn có thể đến trực tiếp trung tâm để chỉnh sửa và bạn có thể liên hệ trực tiếp với chúng tôi qua tài khoản gmail này.\n Tôi trân trọng thông báo!!!");
+                    tableLoi.Status = true;
+                    db.Entry(tableLoi).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return Json("YES", JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                if (tableLoi.So_CMT !=null || tableLoi.So_CMT=="")
+                {
+                    HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.SoCMT == tableLoi.So_CMT);
+                    if (hs!=null && hs.email != null)
+                    {
+                        Senmail senmail = new Senmail();
+                        senmail.SendEmail(hs.email, "Hiện tại thông tin bạn đang có sự khác nhau về '" + tableLoi.TypeLOI + "' trên các giấy tờ.\n Vì vậy tôi mong bạn có thể gửi lại thông tin để chúng tôi hoặc bạn có thể đến trực tiếp trung tâm để chỉnh sửa và bạn có thể liên hệ trực tiếp với chúng tôi qua tài khoản gmail này.\n Tôi trân trọng thông báo!!!");
+                        tableLoi.Status = true;
+                        db.Entry(tableLoi).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return Json("YES", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                if (tableLoi.id_GKS > 0)
+                {
+                    HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_GKS == tableLoi.id_GKS);
+                    if (hs != null && hs.email != null)
+                    {
+                        Senmail senmail = new Senmail();
+                        senmail.SendEmail(hs.email, "Hiện tại thông tin bạn đang có sự khác nhau về '" + tableLoi.TypeLOI + "' trên các giấy tờ.\n Vì vậy tôi mong bạn có thể gửi lại thông tin để chúng tôi hoặc bạn có thể đến trực tiếp trung tâm để chỉnh sửa và bạn có thể liên hệ trực tiếp với chúng tôi qua tài khoản gmail này.\n Tôi trân trọng thông báo!!!");
+                        tableLoi.Status = true;
+                        db.Entry(tableLoi).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return Json("YES", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                if (tableLoi.id_BTN > 0)
+                {
+                    HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_BTN == tableLoi.id_BTN);
+                    if (hs != null && hs.email != null)
+                    {
+                        Senmail senmail = new Senmail();
+                        senmail.SendEmail(hs.email, "Hiện tại thông tin bạn đang có sự khác nhau về '" + tableLoi.TypeLOI + "' trên các giấy tờ.\n Vì vậy tôi mong bạn có thể gửi lại thông tin để chúng tôi hoặc bạn có thể đến trực tiếp trung tâm để chỉnh sửa và bạn có thể liên hệ trực tiếp với chúng tôi qua tài khoản gmail này.\n Tôi trân trọng thông báo!!!");
+                        tableLoi.Status = true;
+                        db.Entry(tableLoi).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return Json("YES", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                if (tableLoi.id_HB > 0)
+                {
+                    HOCSINH hs = db.HOCSINHs.SingleOrDefault(n => n.id_HB == tableLoi.id_HB);
+                    if (hs != null && hs.email != null)
+                    {
+                        Senmail senmail = new Senmail();
+                        senmail.SendEmail(hs.email, "Hiện tại thông tin bạn đang có sự khác nhau về '" + tableLoi.TypeLOI + "' trên các giấy tờ.\n Vì vậy tôi mong bạn có thể gửi lại thông tin để chúng tôi hoặc bạn có thể đến trực tiếp trung tâm để chỉnh sửa và bạn có thể liên hệ trực tiếp với chúng tôi qua tài khoản gmail này.\n Tôi trân trọng thông báo!!!");
+                        tableLoi.Status = true;
+                        db.Entry(tableLoi).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return Json("YES", JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            return Json("NO", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

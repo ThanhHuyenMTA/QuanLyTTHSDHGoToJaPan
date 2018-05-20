@@ -232,6 +232,7 @@
     <Content Include="Scripts\NhapDiem.js" />
     <Content Include="Scripts\Validation\Validation.js" />
     <Content Include="Scripts\Validation\Validation1.js" />
+    <Content Include="Scripts\XulyHocBa.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +246,7 @@
     <Compile Include="CommonXuLy\Xuly.cs" />
     <Compile Include="Controllers\BangTotNghiepController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CaNhanNguoiDungController.cs" />
     <Compile Include="Controllers\CMTController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\GiayChungThucController.cs" />
@@ -253,7 +255,6 @@
     <Compile Include="Controllers\HocBaController.cs" />
     <Compile Include="Controllers\HocSinhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KyHocController.cs" />
     <Compile Include="Controllers\NamHocController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
     <Compile Include="Controllers\NguoiGiamHoController.cs" />
@@ -386,7 +387,6 @@
     <Content Include="Views\CMT\Loai3.cshtml" />
     <Content Include="Views\GiayKhaiSinh\Themmoi.cshtml" />
     <Content Include="Views\BangTotNghiep\Themmoi.cshtml" />
-    <Content Include="Views\HocBa\Themmoi.cshtml" />
     <Content Include="Views\NguoiGiamHo\Themmoi.cshtml" />
     <Content Include="Views\NguoiGiamHo\Loai1.cshtml" />
     <Content Include="Views\NguoiGiamHo\Loai2.cshtml" />
@@ -399,7 +399,6 @@
     <Content Include="Models\Entities\HoSoDuHocEntities.edmx.diagram">
       <DependentUpon>HoSoDuHocEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\NamHoc\Themmoi.cshtml" />
     <Content Include="Views\GiayTo\Index.cshtml" />
     <Content Include="Views\GiayKhaiSinh\DetailGKS.cshtml" />
     <Content Include="Views\BangTotNghiep\DetailBTN.cshtml" />
@@ -415,15 +414,10 @@
     <Content Include="Views\CMT\ThemmoiR.cshtml" />
     <Content Include="Views\BangTotNghiep\ThemmoiR.cshtml" />
     <Content Include="Views\GiayKhaiSinh\ThemmoiR.cshtml" />
-    <Content Include="Views\HocBa\ThemmoiR.cshtml" />
     <Content Include="Views\NguoiGiamHo\ThemmoiR.cshtml" />
-    <Content Include="Views\HocBa\DetailHB.cshtml" />
     <Content Include="Views\CMT\SuaCMT.cshtml" />
     <Content Include="Views\GiayKhaiSinh\SuaGKS.cshtml" />
     <Content Include="Views\BangTotNghiep\SuaBTN.cshtml" />
-    <Content Include="Views\HocBa\SuaHB.cshtml" />
-    <Content Include="Views\NamHoc\ThemmoiR.cshtml" />
-    <Content Include="Views\KyHoc\ThemmoiDiem.cshtml" />
     <Content Include="Content\filePDF\GKS.pdf" />
     <Content Include="Content\filePDF\BTN.pdf" />
     <Content Include="Content\filePDF\HB.pdf" />
@@ -451,8 +445,20 @@
     <Content Include="Views\SoHoKhau\Themmoi.cshtml" />
     <Content Include="Views\NguoiGiamHo\Detail.cshtml" />
     <Content Include="Views\GiayChungThuc\Themmoi.cshtml" />
-    <Content Include="Views\GiayChungThuc\DetailBTN.cshtml" />
     <Content Include="Views\GiayChungThuc\DetailGCT.cshtml" />
+    <Content Include="Views\NguoiGiamHo\SuaNGH.cshtml" />
+    <Content Include="Views\CaNhanNguoiDung\DetailTaiKhoan.cshtml" />
+    <Content Include="Views\CaNhanNguoiDung\CapNhatTaiKhoan.cshtml" />
+    <Content Include="Views\CaNhanNguoiDung\DoiMatKhau.cshtml" />
+    <Content Include="Views\NamHoc\Themmoi.cshtml" />
+    <Content Include="Views\HocBa\Themmoi.cshtml" />
+    <Content Include="Views\HocBa\DetailHB.cshtml" />
+    <Content Include="Views\HocBa\SuaHB.cshtml" />
+    <Content Include="Views\HocBa\ThemmoiR.cshtml" />
+    <Content Include="Views\NamHoc\ThemmoiR.cshtml" />
+    <Content Include="Views\NamHoc\ThemmoiDiem.cshtml" />
+    <Content Include="Views\NamHoc\Suanamhoc.cshtml" />
+    <Content Include="Views\NamHoc\Suadiem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

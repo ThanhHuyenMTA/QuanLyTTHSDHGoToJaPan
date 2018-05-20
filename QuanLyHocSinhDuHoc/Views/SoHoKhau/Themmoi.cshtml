@@ -14,6 +14,14 @@
                 </div>
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class=" item form-group">
+                                    <button  type="button" onclick="$('#fileSHK').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
+                                    <input type="file" id="fileSHK" name="fileSHK" style="display: none;" class="form-control">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">                           
                             <div class="col-md-10 col-sm-10 col-xs-10">
                                 <br /><br />
@@ -76,7 +84,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
                                     <button class="btn btn-success" type="submit" id="ThemmoiSoHoKhau" style="margin-left:30%;">Thêm mới</button>
-                                    <a href="/HocSinh/Index" class="btn btn-primary">Huỷ</a>
+                                    <a href="/HocSinh/DetailChung/@Session["id_hsSHK"]" class="btn btn-primary">Huỷ</a>
                                 </div>
                             </div>
                         </div>
@@ -99,5 +107,30 @@
             alert("Các giá trị khôn được để trống !!!");
             return false;
         }
+    });
+    $(document).ready(function () {
+        $("#fileSHK").change(function () {
+            debugger;
+            var data = new FormData();
+            var files = $("#fileSHK").get(0).files;
+            if (files.length > 0) {
+                data.append("HelpSectionFile", files[0]);
+            }
+            $.ajax({
+                url: "/XulyHocSinh/UpLoadFile",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (data) {
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
     });
 </script>

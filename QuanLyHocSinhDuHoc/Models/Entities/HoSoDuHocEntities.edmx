@@ -81,7 +81,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenGiay" Type="nvarchar" MaxLength="300" />
-          <Property Name="Anh" Type="text" />
+          <Property Name="Anh" Type="ntext" />
           <Property Name="MoTa" Type="ntext" />
           <Property Name="id_HSHS" Type="int" />
         </EntityType>
@@ -220,6 +220,7 @@
           <Property Name="NgheNghiep" Type="nvarchar" MaxLength="200" />
           <Property Name="QuanHe" Type="nvarchar" MaxLength="200" />
           <Property Name="id_hs" Type="int" />
+          <Property Name="fileSHK" Type="ntext" />
         </EntityType>
         <EntityType Name="HOPDONG">
           <Key>
@@ -282,8 +283,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ThoiGian" Type="nvarchar" MaxLength="20" />
           <Property Name="TenLop" Type="nvarchar" MaxLength="50" />
-          <Property Name="TenTruong" Type="nvarchar" MaxLength="100" />
+          <Property Name="TenTruong" Type="nvarchar" MaxLength="200" />
           <Property Name="id_HB" Type="int" />
+          <Property Name="StatusNH" Type="bit" />
         </EntityType>
         <EntityType Name="NGUOIGIAMHO">
           <Key>
@@ -361,6 +363,7 @@
           <Property Name="TimeEnd" Type="datetime" />
           <Property Name="TrangThai" Type="varchar" MaxLength="20" />
           <Property Name="NguoiSua" Type="int" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <Function Name="PhanTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NguoiTao" Type="int" Mode="In" />
@@ -459,7 +462,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenGiay" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="id_HSHS" Type="Int32" />
         </EntityType>
@@ -563,16 +566,6 @@
           <Property Name="TGKetThuc" Type="DateTime" Precision="3" />
           <Property Name="Mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="NAMHOC">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ThoiGian" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TenTruong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="id_HB" Type="Int32" />
-        </EntityType>
         <EntityType Name="TABLE_LOI">
           <Key>
             <PropertyRef Name="id" />
@@ -588,6 +581,7 @@
           <Property Name="TimeEnd" Type="DateTime" Precision="3" />
           <Property Name="TrangThai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NguoiSua" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="dbXulyTThsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BANGTOTNGHIEPs" EntityType="Self.BANGTOTNGHIEP" />
@@ -601,7 +595,6 @@
           <EntitySet Name="HOSOHS" EntityType="Self.HOSOH" />
           <EntitySet Name="KIHOCs" EntityType="Self.KIHOC" />
           <EntitySet Name="LOTRINHs" EntityType="Self.LOTRINH" />
-          <EntitySet Name="NAMHOCs" EntityType="Self.NAMHOC" />
           <EntitySet Name="TABLE_LOI" EntityType="Self.TABLE_LOI" />
           <FunctionImport Name="PhanTrang" ReturnType="Collection(dbXulyTThsModel.PhanTrang_Result)">
             <Parameter Name="NguoiTao" Mode="In" Type="Int32" />
@@ -626,6 +619,7 @@
           <EntitySet Name="NGUOIGIAMHOes" EntityType="dbXulyTThsModel.NGUOIGIAMHO" />
           <EntitySet Name="CMTs" EntityType="dbXulyTThsModel.CMT" />
           <EntitySet Name="HOCSINHs" EntityType="dbXulyTThsModel.HOCSINH" />
+          <EntitySet Name="NAMHOCs" EntityType="dbXulyTThsModel.NAMHOC" />
         </EntityContainer>
         <ComplexType Name="PhanTrang_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -651,6 +645,7 @@
           <Property Name="NgheNghiep" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="QuanHe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="id_hs" Type="Int32" />
+          <Property Name="fileSHK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="GiayNhapHoc">
           <Key>
@@ -833,6 +828,17 @@
           <Property Name="timeStart" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="NguoiTao" Type="Int32" />
         </EntityType>
+        <EntityType Name="NAMHOC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThoiGian" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenTruong" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="id_HB" Type="Int32" />
+          <Property Name="StatusNH" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1007,20 +1013,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NAMHOCs">
-            <EntityTypeMapping TypeName="dbXulyTThsModel.NAMHOC">
-              <MappingFragment StoreEntitySet="NAMHOC">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
-                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
-                <ScalarProperty Name="TenTruong" ColumnName="TenTruong" />
-                <ScalarProperty Name="id_HB" ColumnName="id_HB" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TABLE_LOI">
             <EntityTypeMapping TypeName="dbXulyTThsModel.TABLE_LOI">
               <MappingFragment StoreEntitySet="TABLE_LOI">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1054,6 +1050,7 @@
           <EntitySetMapping Name="HoKhaus">
             <EntityTypeMapping TypeName="dbXulyTThsModel.HoKhau">
               <MappingFragment StoreEntitySet="HoKhau">
+                <ScalarProperty Name="fileSHK" ColumnName="fileSHK" />
                 <ScalarProperty Name="id_hs" ColumnName="id_hs" />
                 <ScalarProperty Name="QuanHe" ColumnName="QuanHe" />
                 <ScalarProperty Name="NgheNghiep" ColumnName="NgheNghiep" />
@@ -1257,6 +1254,18 @@
                 <ScalarProperty Name="sdt" ColumnName="sdt" />
                 <ScalarProperty Name="SoCMT" ColumnName="SoCMT" />
                 <ScalarProperty Name="TenHS" ColumnName="TenHS" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NAMHOCs">
+            <EntityTypeMapping TypeName="dbXulyTThsModel.NAMHOC">
+              <MappingFragment StoreEntitySet="NAMHOC">
+                <ScalarProperty Name="StatusNH" ColumnName="StatusNH" />
+                <ScalarProperty Name="id_HB" ColumnName="id_HB" />
+                <ScalarProperty Name="TenTruong" ColumnName="TenTruong" />
+                <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

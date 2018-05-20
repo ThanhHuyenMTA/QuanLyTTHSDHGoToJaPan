@@ -6,25 +6,34 @@
     if (ViewBag.ThongbaoBTN == "NO")
     {
         <h2 style='color:#0070e2;'><strong>Chưa cập nhật giấy chứng thực</strong></h2>
-        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file</button>
+        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Chọn file<br /><i>(Chú ý file dạng Pdf!)</i></button>
         <input type="file" id="fileGCT" name="fileGCT" style="display: none;" class="form-control">
         <a class="btn btn-sm btn-primary" href="@Url.Action("Load","GiayChungThuc")">Load</a>
     }
     if (ViewBag.ThongbaoBTN == "OK")
     {
-        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Thêm file</button>
+        <button type="button" onclick="$('#fileGCT').click()" class="btn btn-sm btn-primary" style="width:230px;">Thêm file<br /><i>(Chú ý file dạng Pdf!)</i></button>
         <input type="file" id="fileGCT" name="fileGCT" style="display: none;" class="form-control">
         <a class="btn btn-sm btn-primary" href="@Url.Action("Load","GiayChungThuc")">Load</a><br />
         var k = 1;
         foreach (var item in Model)
         {
+            <a class="btn btn-success" onclick ="ClickXoaFile(@item.id)" >Xóa</a>
             <a class="btn btn-success" href="@Url.Action("TestPdf", "XuLyHocSinh", new { @url  =@item.Anh})" target="@item.id" onclick="clickHienGCT(@item.id)">Hiện thị file @k</a>
             <iframe allowfullscreen frameborder="1" height="400px" width="100%" name="@item.id" hidden id="@item.id"></iframe>
+         
             k++;
         }
     }
 }
 <script type="text/javascript">
+    function ClickXoaFile(id)
+    {
+        var conF =confirm("Bạn có thực sự muốn xóa không?");
+        if(conF==true)
+            window.location.href ="/GiayChungThuc/Xoa/"+id;
+        else return false;
+    }
     function clickHienGCT(id){
         $("#"+id).show();
     };

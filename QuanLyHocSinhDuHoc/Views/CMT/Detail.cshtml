@@ -1,4 +1,5 @@
 ﻿@model QuanLyHocSinhDuHoc.Models.Entities.CMT
+
 @{
     //var id_hs = Request["id"];
     //var id_hs = Request.Url.Segments.Last();
@@ -125,7 +126,7 @@
                     else
                     {
                         <div class=" item form-group">
-                            <button id="btn_fileCMTCN" type="button" onclick="$('#filecmtCapNhat').click()" class="btn btn-sm btn-primary" style="width:230px;">Cập nhật file</button>
+                            <button id="btn_fileCMTCN" type="button" onclick="$('#filecmtCapNhat').click()" class="btn btn-sm btn-primary" style="width:230px;">Cập nhật file<br /><i>(Chú ý file dạng Pdf!)</i></button>
                             <input type="file" id="filecmtCapNhat" name="filecmtCapNhat" style="display: none;" class="form-control">
                         </div>
                     }

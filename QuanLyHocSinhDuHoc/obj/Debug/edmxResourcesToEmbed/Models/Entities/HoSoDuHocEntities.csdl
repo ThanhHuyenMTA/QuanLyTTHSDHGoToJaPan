@@ -55,7 +55,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TenGiay" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="id_HSHS" Type="Int32" />
   </EntityType>
@@ -159,16 +159,6 @@
     <Property Name="TGKetThuc" Type="DateTime" Precision="3" />
     <Property Name="Mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
-  <EntityType Name="NAMHOC">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ThoiGian" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TenTruong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="id_HB" Type="Int32" />
-  </EntityType>
   <EntityType Name="TABLE_LOI">
     <Key>
       <PropertyRef Name="id" />
@@ -184,6 +174,7 @@
     <Property Name="TimeEnd" Type="DateTime" Precision="3" />
     <Property Name="TrangThai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="NguoiSua" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
   </EntityType>
   <EntityContainer Name="dbXulyTThsEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BANGTOTNGHIEPs" EntityType="Self.BANGTOTNGHIEP" />
@@ -197,7 +188,6 @@
     <EntitySet Name="HOSOHS" EntityType="Self.HOSOH" />
     <EntitySet Name="KIHOCs" EntityType="Self.KIHOC" />
     <EntitySet Name="LOTRINHs" EntityType="Self.LOTRINH" />
-    <EntitySet Name="NAMHOCs" EntityType="Self.NAMHOC" />
     <EntitySet Name="TABLE_LOI" EntityType="Self.TABLE_LOI" />
     <FunctionImport Name="PhanTrang" ReturnType="Collection(dbXulyTThsModel.PhanTrang_Result)">
       <Parameter Name="NguoiTao" Mode="In" Type="Int32" />
@@ -222,6 +212,7 @@
     <EntitySet Name="NGUOIGIAMHOes" EntityType="dbXulyTThsModel.NGUOIGIAMHO" />
     <EntitySet Name="CMTs" EntityType="dbXulyTThsModel.CMT" />
     <EntitySet Name="HOCSINHs" EntityType="dbXulyTThsModel.HOCSINH" />
+    <EntitySet Name="NAMHOCs" EntityType="dbXulyTThsModel.NAMHOC" />
   </EntityContainer>
   <ComplexType Name="PhanTrang_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -247,6 +238,7 @@
     <Property Name="NgheNghiep" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="QuanHe" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="id_hs" Type="Int32" />
+    <Property Name="fileSHK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="GiayNhapHoc">
     <Key>
@@ -428,5 +420,16 @@
     <Property Name="id_NgGiamHo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="timeStart" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="NguoiTao" Type="Int32" />
+  </EntityType>
+  <EntityType Name="NAMHOC">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ThoiGian" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TenTruong" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="id_HB" Type="Int32" />
+    <Property Name="StatusNH" Type="Boolean" />
   </EntityType>
 </Schema>

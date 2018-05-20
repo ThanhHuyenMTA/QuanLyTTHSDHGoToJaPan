@@ -51,7 +51,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);
@@ -73,7 +74,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);
@@ -95,7 +97,8 @@
                 contentType: false,
                 data: data,
                 success: function (data) {
-                    console.log(data);
+                    if (data == "NO")
+                        alert("Lỗi loại file lưu trữ");
                 },
                 error: function (er) {
                     alert(er);

@@ -28,10 +28,25 @@
                                                         <td><div class=word-wrap>@itemNH.ThoiGian</div></td>
                                                         <td><div class=word-wrap>@itemNH.TenLop</div></td>
                                                         <td><div class=word-wrap>@itemNH.TenTruong</div></td>
-                                                        <td>                                                     
-                                                        <a data-toggle=tooltip data-placement=bottom title="Nhập điểm" href="#" onclick="NhapDiem(@itemNH.id)">
-                                                            <i class="fa fa-plus"></i>
-                                                        </a></td>
+                                                        @{
+                                                            if (itemNH.Status == true) //điều kiện là năm học này chưa có nhập điểm
+                                                            {
+                                                                <td>
+                                                                    <a data-toggle=tooltip data-placement=bottom title="Đã nhập điểm" href="#">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
+                                                                </td>
+                                                            }
+                                                            //điều kiện là năm học này chưa có nhập điểm
+                                                            else{
+                                                                        <td>
+                                                                            <a data-toggle=tooltip data-placement=bottom title="Nhập điểm" href="#" onclick="NhapDiem(@itemNH.id)">
+                                                                                <i id="@itemNH.id" class="fa fa-plus"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    }
+                                                        }
+                                                       
                                                     </tr>
                                                 }                                 
                                     </tbody>
@@ -165,10 +180,19 @@
                             <th><input name="DiemTrungBinhII" id="DiemTrungBinhII" type="text" /></th>
                             <th><input name="DiemTrungBinhCN" id="DiemTrungBinhCN" type="text" /></th>
                         </tr>
+                        @*<tr>
+                            <th>
+                                <p id="messTbDiemI" style="font-weight:bold;color:red;"></p>
+                                <button type="button" id="disDiemKyI" onclick="DiemKyI()">Lưu điểm kỳ I</button>
+                            </th>
+                            <th><p id="messTbDiemII" style="font-weight:bold;color:red;"></p><button type="button" id="disDiemKyII" onclick="DiemKyII()">Lưu điểm kỳ II</button></th>
+                            <th><p id="messTbDiemCN" style="font-weight:bold;color:red;"></p><button type="button" id="disDiemKyCN" onclick="DiemKyCN()">Lưu điểm kỳ CN</button></th>
+                        </tr>*@
                         <tr>
-                            <th><button type="button" onclick="DiemKyI()">Lưu điểm kỳ I</button><button type="button">Chọn ảnh</button></th>
-                            <th><button type="button" onclick="DiemKyII()">Lưu điểm kỳ II</button><button type="button">Chọn ảnh</button></th>
-                            <th><button type="button" onclick="DiemKyCN()">Lưu điểm kỳ CN</button><button type="button">Chọn ảnh</button></th>
+                            <td colspan="3">
+                                <p id="messTbDiem" style="font-weight:bold;color:red;"></p>
+                                <button class="btn btn-primary" type="button" id="disDiemKy" onclick="Diem3Ky()">Lưu điểm 3 kỳ</button>
+                            </td>
                         </tr>
                     </thead>
                 </table>
@@ -176,5 +200,8 @@
         </div>
     </div>
 </div>
-
+@*<script type="text/javascript">
+    var k = 0; //sử dụng trong NhapDiem.js - (số kì đã nhập điểm trong năm)
+    var Id_namhoc = 0;
+</script>*@
 <script src="~/Scripts/NhapDiem.js"></script>

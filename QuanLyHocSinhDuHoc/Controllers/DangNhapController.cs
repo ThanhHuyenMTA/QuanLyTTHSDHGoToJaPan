@@ -32,15 +32,23 @@ namespace QuanLyHocSinhDuHoc.Controllers
                     List<PHANQUYEN> listPQ = db.PHANQUYENs.Where(n => n.id_quyen == nv.id_Quyen).ToList();
                     QUYEN quyen = db.QUYENs.Find(nv.id_Quyen);
                     ModelQuyenNguoiDung QuyenNguoiDung = new ModelQuyenNguoiDung(nv,quyen);
-                    Session["QuyenNguoiDung"] = QuyenNguoiDung;
-
-                    Session["DangNhap"] = "OK";
-                    Session["thongbaoDN"] = null;                   
-                    Session["NguoiDung"] = nv.TenDangNhap;
-                    Session["NguoiDungHT"] = nv;
-                    listTb();
-                    return RedirectToAction("Index", "Home");
-
+                    if (QuyenNguoiDung.Nhanvien.id_Quyen != null && QuyenNguoiDung.Nhanvien.id_Quyen>0)
+                    {
+                        Session["QuyenNguoiDung"] = QuyenNguoiDung;
+                        Session["DangNhap"] = "OK";
+                        Session["thongbaoDN"] = null;
+                        Session["NguoiDung"] = nv.TenDangNhap;
+                        Session["NguoiDungHT"] = nv;
+                        
+                        listTb();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        Session["DangNhap"] = "NO";
+                        Session["thongbaoDN"] = "Bạn không có quyền vào hệ thống";
+                        return View();
+                    }
                 }
                 Session["DangNhap"] = "NO";
                 Session["thongbaoDN"] = "Đăng nhập thất bại";

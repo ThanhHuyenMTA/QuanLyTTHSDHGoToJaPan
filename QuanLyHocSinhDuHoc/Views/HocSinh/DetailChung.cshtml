@@ -54,7 +54,7 @@
         <div id="hb" class="container tab-pane fade">
             @Html.Action("DetailHB", "HocBa")
         </div>
-        <div id="ngh" class="container tab-pane fade">
+        <div id="ngh" class="container tab-pane fade" style="margin-top:10px;">
             @Html.Action("Detail", "NguoiGiamHo")
               </div>
         <div id="shk" class="container tab-pane fade">
@@ -64,7 +64,6 @@
             <br>
             @Html.Action("DetailGCT", "GiayChungThuc")
          </div>
-
     </div>
 </div>
 <input id="chuyenTab" name="chuyenTab" value="@Session["chuyenTab"]" hidden="hidden" />
